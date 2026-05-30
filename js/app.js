@@ -78,6 +78,7 @@ function bindNav() {
 
 function setView(view) {
   state.view = view;
+  document.body.classList.toggle('settings-view', view === 'settings');
   navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === view));
   app.focus({ preventScroll: true });
 }
@@ -151,20 +152,20 @@ function renderHome() {
 
   app.innerHTML = `
     <section class="hero card">
+      <button class="location-btn" id="prayerSettingsBtn" aria-label="Atur wilayah jadwal shalat" title="Atur Wilayah">⌖</button>
       <h2>Assalamu'alaikum</h2>
-      <p>Waktu shalat berikutnya ditampilkan berdasarkan wilayah pilihan. Jadwal diambil dari EQuran.id dengan sumber data Bimas Islam Kementerian Agama RI.</p>
+      <p>Waktu shalat berikutnya ditampilkan berdasarkan wilayah pilihan. Jadwal shalat diambil dari data Bimas Islam Kementerian Agama RI.</p>
       <div class="clock-row">
         <div>
           <div class="prayer-next" id="prayerNext">Memuat jadwal...</div>
           <p class="prayer-countdown" id="prayerCountdown">${formatDate(now)}</p>
           <p class="prayer-location" id="prayerLocation">Wilayah: ${escapeHtml(state.prayerCity)}, ${escapeHtml(state.prayerProvince)}</p>
         </div>
-        <div class="hero-actions">
-          <button class="primary-btn" id="quickBtn">Buka</button>
-          <button class="secondary-btn" id="prayerSettingsBtn">Atur Wilayah</button>
-        </div>
       </div>
-      <p style="margin-top:12px" id="suggestionText">Saran bacaan: <strong>${escapeHtml(state.currentSuggestion.label)}</strong></p>
+      <div class="suggestion-row" id="suggestionText">
+        <span>Saran bacaan: <strong>${escapeHtml(state.currentSuggestion.label)}</strong></span>
+        <button class="primary-btn mini-open-btn" id="quickBtn">Buka</button>
+      </div>
     </section>
 
     <h2 class="section-title">Daftar Doa & Wirid</h2>
@@ -385,7 +386,7 @@ function renderSettings() {
 
       <div class="info-card card">
         <h3>Wilayah Jadwal Shalat</h3>
-        <p>Jadwal shalat diambil dari EQuran.id dengan sumber data Bimas Islam Kementerian Agama RI. Hasil jadwal bulan berjalan disimpan di perangkat agar bisa dipakai ulang saat offline.</p>
+        <p>Jadwal shalat diambil dari data Bimas Islam Kementerian Agama RI.</p>
         <div class="location-grid" style="margin-top:12px">
           <div class="field">
             <label for="provinceSelect">Provinsi</label>
@@ -421,7 +422,7 @@ function renderSettings() {
 
       <div class="info-card card">
         <h3>Operasional Offline</h3>
-        <p>Teks doa, wirid, mode baca, ukuran font, dan tasbih digital berjalan di perangkat. Internet hanya diperlukan untuk mengambil jadwal shalat EQuran.id, deteksi GPS, membuka tautan eksternal, atau pembaruan repository.</p>
+        <p>Teks doa, wirid, mode baca, ukuran font, dan tasbih digital berjalan di perangkat. Internet hanya diperlukan untuk mengambil jadwal shalat, deteksi GPS, membuka tautan eksternal, atau pembaruan repository.</p>
       </div>
       <div class="info-card card">
         <h3>Informasi Pesantren</h3>
@@ -470,7 +471,10 @@ async function refreshPrayerWidget() {
       countdownEl.textContent = `Menuju ${next.label}: ${formatCountdown(next.date - new Date())}`;
       locationEl.textContent = `Wilayah: ${schedule.data.kabkota}, ${schedule.data.provinsi} • ${formatDate(new Date())}`;
       state.currentSuggestion = getSuggestionByPrayer(next.label);
-      if (suggestionEl) suggestionEl.innerHTML = `Saran bacaan: <strong>${escapeHtml(state.currentSuggestion.label)}</strong>`;
+      if (suggestionEl) {
+        suggestionEl.innerHTML = `<span>Saran bacaan: <strong>${escapeHtml(state.currentSuggestion.label)}</strong></span><button class="primary-btn mini-open-btn" id="quickBtn">Buka</button>`;
+        suggestionEl.querySelector('#quickBtn')?.addEventListener('click', () => openReader(state.currentSuggestion.section.id, state.currentSuggestion.subsection?.id));
+      }
     };
     update();
     window.__ppsaPrayerTimer = window.setInterval(update, 60 * 1000);

@@ -12,6 +12,7 @@
   --radius-lg: 24px;
   --radius-md: 18px;
   --font-arabic-size: 28px;
+  --font-arabic: "Noto Naskh Arabic", "Scheherazade New", "Amiri", "Traditional Arabic", serif;
 }
 
 * { box-sizing: border-box; }
@@ -242,7 +243,7 @@ input[type="range"] { accent-color: var(--deep-pine); }
 .arabic {
   direction: rtl;
   text-align: right;
-  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
+  font-family: var(--font-arabic);
   font-size: var(--font-arabic-size);
   line-height: 2.25;
   color: #111c0e;
@@ -309,7 +310,7 @@ a { color: var(--deep-pine); font-weight: 800; }
 /* Revisi PPSA - header Arab, mode baca, dan jadwal shalat */
 .arabic-brand-title,
 .arabic-brand-subtitle {
-  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
+  font-family: var(--font-arabic);
   letter-spacing: 0;
   text-align: right;
 }
@@ -432,7 +433,7 @@ a { color: var(--deep-pine); font-weight: 800; }
 
 .menu-copy { min-width: 0; display: grid; gap: 4px; text-align: left; }
 .menu-arabic {
-  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
+  font-family: var(--font-arabic);
   font-size: clamp(1.35rem, 4vw, 1.95rem);
   line-height: 1.6;
   color: var(--deep-pine);
@@ -443,3 +444,50 @@ a { color: var(--deep-pine); font-weight: 800; }
 .showcase-title, .showcase-subtitle { width: 100%; text-align: center !important; color: var(--deep-pine); }
 .showcase-title { margin: 14px 0 4px; font-size: clamp(1.9rem, 6vw, 2.9rem); line-height: 1.25; }
 .showcase-subtitle { margin: 0; font-size: clamp(1rem, 3vw, 1.35rem); line-height: 1.4; }
+
+
+/* Revisi v4 */
+body.settings-view .topbar { display: none; }
+body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px; }
+.menu-card h3 { font-weight: 400; }
+.menu-arabic, .arabic, .arabic-brand-title, .arabic-brand-subtitle { font-family: var(--font-arabic); font-weight: 500; font-kerning: normal; }
+.menu-arabic { font-size: clamp(1.5rem, 4.4vw, 2.1rem); line-height: 1.7; }
+.arabic { font-weight: 500; }
+.location-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ivory);
+  background: rgba(255,255,255,.12);
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+.suggestion-row {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--ivory);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+.suggestion-row strong { font-weight: 900; }
+.mini-open-btn {
+  min-height: 34px;
+  padding: 6px 14px;
+  font-size: .88rem;
+  box-shadow: none;
+}
+.hero .mini-open-btn { background: var(--gold); color: #1b250d; }
+@media (max-width: 390px) {
+  .location-btn { width: 40px; height: 40px; top: 14px; right: 14px; }
+  .suggestion-row { align-items: flex-start; }
+}
