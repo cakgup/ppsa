@@ -1,4 +1,0 @@
-- name: Push to GitLab
-        run: |
-          git remote add gitlab https://cakgup:${{ secrets.GITLAB_TOKEN }}@gitlab.com/cakgup/ppsa.git
-          git push --force --prune gitlab main
