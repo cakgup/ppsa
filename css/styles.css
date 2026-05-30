@@ -11,7 +11,7 @@
   --shadow: 0 12px 30px rgba(26, 67, 20, .12);
   --radius-lg: 24px;
   --radius-md: 18px;
-  --font-arabic-size: 24px;
+  --font-arabic-size: 28px;
 }
 
 * { box-sizing: border-box; }
@@ -69,14 +69,14 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 72px;
-  padding: calc(12px + env(safe-area-inset-top)) 18px 12px;
+  min-height: 98px;
+  padding: calc(12px + env(safe-area-inset-top)) 20px 14px;
   background: rgba(253, 251, 247, .94);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.brand-logo { width: 46px; height: 46px; border-radius: 50%; object-fit: contain; background: white; border: 1px solid var(--border); }
+.brand-logo { width: 80px; height: 80px; border-radius: 50%; object-fit: contain; background: transparent; border: 0; }
 .brand h1 { margin: 0; font-size: 1rem; line-height: 1.1; color: var(--deep-pine); }
 .brand p { margin: 3px 0 0; font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -242,9 +242,9 @@ input[type="range"] { accent-color: var(--deep-pine); }
 .arabic {
   direction: rtl;
   text-align: right;
-  font-family: "Amiri", "Scheherazade New", "Noto Naskh Arabic", "Traditional Arabic", serif;
+  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
   font-size: var(--font-arabic-size);
-  line-height: 1.95;
+  line-height: 2.25;
   color: #111c0e;
   margin: 0;
   word-break: normal;
@@ -309,7 +309,7 @@ a { color: var(--deep-pine); font-weight: 800; }
 /* Revisi PPSA - header Arab, mode baca, dan jadwal shalat */
 .arabic-brand-title,
 .arabic-brand-subtitle {
-  font-family: "Amiri", "Scheherazade New", "Noto Naskh Arabic", "Traditional Arabic", serif;
+  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
   letter-spacing: 0;
   text-align: right;
 }
@@ -327,17 +327,19 @@ a { color: var(--deep-pine); font-weight: 800; }
 }
 .brand > div { min-width: 0; }
 .brand .arabic-brand-title {
-  font-size: clamp(1.12rem, 4vw, 1.55rem);
+  font-size: clamp(1.7rem, 4.8vw, 2.6rem);
   font-weight: 900;
-  line-height: 1.35;
+  line-height: 1.15;
   white-space: nowrap;
 }
+
 .brand .arabic-brand-subtitle {
-  font-size: clamp(.72rem, 2.7vw, .9rem);
+  font-size: clamp(1rem, 2.8vw, 1.4rem);
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.15;
   max-width: 430px;
 }
+
 .hero h2 { margin-bottom: 10px; }
 .prayer-next {
   font-size: clamp(1.6rem, 7vw, 2.25rem);
@@ -421,9 +423,23 @@ a { color: var(--deep-pine); font-weight: 800; }
   font-size: .82rem;
 }
 @media (max-width: 390px) {
-  .brand-logo { width: 42px; height: 42px; }
-  .brand .arabic-brand-title { font-size: 1.06rem; }
-  .brand .arabic-brand-subtitle { max-width: 245px; }
+  .brand-logo { width: 64px; height: 64px; }
+  .brand .arabic-brand-title { font-size: 1.45rem; }
+  .brand .arabic-brand-subtitle { max-width: 245px; font-size: .9rem; }
   .clock-row { align-items: flex-start; }
   .hero-actions { justify-content: flex-start; }
 }
+
+.menu-copy { min-width: 0; display: grid; gap: 4px; text-align: left; }
+.menu-arabic {
+  font-family: "ArabicFont", "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
+  font-size: clamp(1.35rem, 4vw, 1.95rem);
+  line-height: 1.6;
+  color: var(--deep-pine);
+}
+.menu-meta { margin-top: 2px !important; font-size: .78rem !important; }
+.brand-showcase { text-align: center; display: grid; justify-items: center; }
+.brand-showcase img { width: 124px !important; height: 124px !important; background: transparent !important; border: 0 !important; padding: 0 !important; }
+.showcase-title, .showcase-subtitle { width: 100%; text-align: center !important; color: var(--deep-pine); }
+.showcase-title { margin: 14px 0 4px; font-size: clamp(1.9rem, 6vw, 2.9rem); line-height: 1.25; }
+.showcase-subtitle { margin: 0; font-size: clamp(1rem, 3vw, 1.35rem); line-height: 1.4; }

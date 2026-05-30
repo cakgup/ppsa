@@ -13,7 +13,7 @@ const state = {
   view: 'home',
   currentSectionId: null,
   currentSubsectionId: null,
-  fontSize: Number(localStorage.getItem('ppsa-font-size') || 24),
+  fontSize: Number(localStorage.getItem('ppsa-font-size-v3') || 28),
   textMode: localStorage.getItem('ppsa-text-mode') || 'arabic_translation',
   haptic: localStorage.getItem('ppsa-haptic') !== 'false',
   counter: Number(localStorage.getItem('ppsa-counter') || 0),
@@ -85,7 +85,7 @@ function setView(view) {
 function setArabicFontSize(size) {
   state.fontSize = Number(size);
   document.documentElement.style.setProperty('--font-arabic-size', `${state.fontSize}px`);
-  localStorage.setItem('ppsa-font-size', state.fontSize);
+  localStorage.setItem('ppsa-font-size-v3', state.fontSize);
 }
 
 function setTextMode(mode) {
@@ -109,13 +109,13 @@ function localYmd(date = new Date()) { return `${date.getFullYear()}-${pad2(date
 function getSuggestion(now = new Date()) {
   const hour = now.getHours() + now.getMinutes() / 60;
   if (hour >= 3 && hour < 6) return getSuggestionByPrayer('Subuh');
-  if (hour >= 6 && hour < 10) return pickSuggestion('09_doa_salat_duha', 0, 'Doa Salat Duha');
+  if (hour >= 6 && hour < 10) return pickSuggestion('09_doa_shalat_duha', 0, 'Doa Shalat Duha');
   if (hour >= 10.5 && hour < 13.2) return getSuggestionByPrayer('Dzuhur');
   if (hour >= 13.2 && hour < 16.7) return getSuggestionByPrayer('Ashar');
   if (hour >= 16.7 && hour < 18.7) return getSuggestionByPrayer('Maghrib');
   if (hour >= 18.7 && hour < 21.5) return getSuggestionByPrayer('Isya');
-  if (hour >= 21.5 || hour < 3) return pickSuggestion('08_doa_salat_tahajud', 0, 'Doa Salat Tahajud');
-  return pickSuggestion('05_wirid_setelah_salat_fardu_asmaul_husna', 0, 'Wirid Setelah Salat Fardu');
+  if (hour >= 21.5 || hour < 3) return pickSuggestion('08_doa_shalat_tahajud', 0, 'Doa Shalat Tahajud');
+  return pickSuggestion('05_wirid_setelah_shalat_fardu_asmaul_husna', 0, 'Wirid Setelah Shalat Fardu');
 }
 
 function pickSuggestion(sectionId, subIndex = 0, label = '') {
@@ -184,14 +184,16 @@ function renderHome() {
 
 function sectionCard(section, index) {
   const count = section.subsections?.reduce((sum, sub) => sum + (sub.items?.length || 0), 0) || 0;
+  const arabicTitle = section.display_title_arabic || '';
   const title = section.display_title || titleCase(section.title);
-  const subtitle = section.display_subtitle || `${section.app_category || 'Amalan'} • ${count} bait/baris`;
+  const meta = `${count} bait/baris`;
   return `
     <button class="menu-card" data-section="${section.id}">
       <span class="mark">${index + 1}</span>
-      <span>
+      <span class="menu-copy">
+        ${arabicTitle ? `<div class="menu-arabic" lang="ar" dir="rtl">${escapeHtml(arabicTitle)}</div>` : ''}
         <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(subtitle)}</p>
+        <p class="menu-meta">${escapeHtml(meta)}</p>
       </span>
     </button>
   `;
@@ -375,10 +377,10 @@ function renderSettings() {
   setView('settings');
   app.innerHTML = `
     <section class="info-list">
-      <div class="info-card card" style="text-align:center">
+      <div class="info-card card brand-showcase">
         <img src="assets/logo.png" alt="Logo Pondok Pesantren Sunan Ampel" style="width:104px;height:104px;object-fit:contain;border-radius:50%;background:white;border:1px solid var(--border);padding:6px" />
-        <h2 class="arabic-brand-title" lang="ar" dir="rtl" style="color:var(--deep-pine);margin:12px 0 4px">${ARABIC_TITLE}</h2>
-        <p class="arabic-brand-subtitle" lang="ar" dir="rtl" style="text-align:center">${ARABIC_SUBTITLE}</p>
+        <h2 class="arabic-brand-title showcase-title" lang="ar" dir="rtl">${ARABIC_TITLE}</h2>
+        <p class="arabic-brand-subtitle showcase-subtitle" lang="ar" dir="rtl">${ARABIC_SUBTITLE}</p>
       </div>
 
       <div class="info-card card">

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ppsa-cache-v2';
+const CACHE_NAME = 'ppsa-cache-v3';
 const APP_ASSETS = [
   './',
   './index.html',
