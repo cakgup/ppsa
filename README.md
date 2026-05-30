@@ -69,3 +69,12 @@ Pastikan seluruh isi folder ini berada di root repository `cakgup/ppsa`.
 - Field `arabic` tetap dipertahankan sebagai teks canonical PPSA.
 - Aplikasi menampilkan `arabic_display` agar tampilan Arab lebih halus, dengan separator koma Arab `،` seperti gaya file runtime TTS.
 - Jika `arabic_display` tidak tersedia, aplikasi otomatis fallback ke `arabic`.
+
+
+## Revisi v7
+- Header Arab disesuaikan agar subjudul tidak terpotong.
+- Alignment judul Arab daftar doa dibuat konsisten.
+- Judul Wirid Setelah Shalat Fardu diringkas.
+- Kartu Operasional Offline dihapus.
+- Footer kredit kecil ditambahkan pada halaman Info.
+- Cache service worker: ppsa-cache-v7.

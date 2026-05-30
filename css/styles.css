@@ -38,7 +38,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   justify-items: center;
   gap: 12px;
   color: var(--ivory);
-  background: linear-gradient(160deg, #0f2b0c, var(--deep-pine));
+  background: radial-gradient(circle at top, rgba(212, 175, 55, .18), transparent 36%), linear-gradient(160deg, #0f2b0c, var(--deep-pine));
   transition: opacity .55s ease, visibility .55s ease;
 }
 .splash.hide { opacity: 0; visibility: hidden; }
@@ -47,9 +47,9 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   height: 132px;
   object-fit: contain;
   border-radius: 50%;
-  background: white;
-  padding: 8px;
-  box-shadow: 0 16px 40px rgba(0,0,0,.22);
+  background: transparent;
+  padding: 0;
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
 }
 .splash-title { font-size: 1.45rem; font-weight: 800; letter-spacing: .02em; }
 .splash-subtitle { opacity: .82; font-size: .92rem; }
@@ -216,7 +216,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 }
 .reader-head { position: sticky; top: 73px; z-index: 10; padding: 12px; background: rgba(253,251,247,.96); border: 1px solid var(--border); border-radius: var(--radius-lg); backdrop-filter: blur(12px); }
 .field { display: grid; gap: 6px; }
-.field label { color: var(--deep-pine); font-size: .78rem; font-weight: 800; }
+.field label { color: var(--deep-pine); font-size: .98rem; font-weight: 800; line-height: 1.35; }
 .field input, .field select {
   width: 100%;
   min-height: 44px;
@@ -408,9 +408,26 @@ a { color: var(--deep-pine); font-weight: 800; }
   border-radius: 16px;
   background: rgba(212,175,55,.12);
   color: var(--deep-pine);
-  font-weight: 900;
   line-height: 1.45;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
 }
+.subsection-arabic {
+  direction: rtl;
+  font-family: "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--deep-pine);
+}
+.subsection-translation {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(36, 51, 30, .92);
+}
+
 .prayer-card.arabic-only .translation { display: none; }
 .location-grid {
   display: grid;
@@ -424,9 +441,9 @@ a { color: var(--deep-pine); font-weight: 800; }
 }
 .reader-title {
   color: var(--deep-pine);
-  font-size: 1rem;
-  font-weight: 900;
-  line-height: 1.4;
+  font-size: .98rem;
+  font-weight: 800;
+  line-height: 1.35;
 }
 .reader-subtitle {
   margin-top: -4px;
@@ -546,4 +563,83 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
 }
 @media (max-width: 390px) {
   .arabic { line-height: 2.25; }
+}
+
+/* Revisi v7 - header, daftar doa, dan footer info */
+.topbar {
+  min-height: 136px;
+  padding: calc(16px + env(safe-area-inset-top)) 22px 18px;
+  overflow: visible;
+}
+.brand {
+  align-items: center;
+  gap: 18px;
+  overflow: visible;
+}
+.brand-logo {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 96px;
+}
+.brand > div {
+  min-width: 0;
+  overflow: visible;
+}
+.brand .arabic-brand-title {
+  font-size: clamp(2.15rem, 5vw, 3rem);
+  line-height: 1.25;
+  margin-bottom: 2px;
+}
+.brand .arabic-brand-subtitle {
+  font-size: clamp(.76rem, 1.9vw, 1rem);
+  line-height: 1.95;
+  max-width: 100%;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+  color: var(--muted);
+}
+.menu-card {
+  align-items: flex-start;
+}
+.menu-copy {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+.menu-arabic {
+  display: block;
+  width: 100%;
+  direction: rtl;
+  unicode-bidi: plaintext;
+  text-align: center !important;
+  margin: 0 auto 2px;
+  padding: 0;
+  font-size: clamp(1.65rem, 4.4vw, 2.25rem);
+  line-height: 1.85;
+  white-space: normal;
+}
+.menu-card h3 {
+  font-weight: 400;
+  font-size: .95rem;
+  line-height: 1.35;
+}
+.menu-meta {
+  font-size: .76rem !important;
+}
+.app-credit {
+  margin: 4px 0 16px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: rgba(109, 118, 103, .72);
+}
+@media (max-width: 390px) {
+  .topbar { min-height: 112px; padding-inline: 16px; }
+  .brand { gap: 12px; }
+  .brand-logo { width: 76px; height: 76px; flex-basis: 76px; }
+  .brand .arabic-brand-title { font-size: 1.9rem; line-height: 1.25; }
+  .brand .arabic-brand-subtitle { font-size: .76rem; line-height: 1.85; }
+  .menu-arabic { font-size: 1.55rem; line-height: 1.85; }
 }
