@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap");
+
 :root {
   --deep-pine: #1A4314;
   --pine-2: #245C1B;
@@ -11,8 +13,8 @@
   --shadow: 0 12px 30px rgba(26, 67, 20, .12);
   --radius-lg: 24px;
   --radius-md: 18px;
-  --font-arabic-size: 28px;
-  --font-arabic: "Noto Naskh Arabic", "Scheherazade New", "Amiri", "Traditional Arabic", serif;
+  --font-arabic-size: 1.75rem;
+  --font-arabic: "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif;
 }
 
 * { box-sizing: border-box; }
@@ -246,9 +248,17 @@ input[type="range"] { accent-color: var(--deep-pine); }
   font-family: var(--font-arabic);
   font-size: var(--font-arabic-size);
   line-height: 2.25;
-  color: #111c0e;
+  color: var(--deep-pine);
   margin: 0;
+  white-space: pre-line;
   word-break: normal;
+  overflow-wrap: normal;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 .translation {
   margin: 10px 0 0;
@@ -450,9 +460,23 @@ a { color: var(--deep-pine); font-weight: 800; }
 body.settings-view .topbar { display: none; }
 body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px; }
 .menu-card h3 { font-weight: 400; }
-.menu-arabic, .arabic, .arabic-brand-title, .arabic-brand-subtitle { font-family: var(--font-arabic); font-weight: 500; font-kerning: normal; }
-.menu-arabic { font-size: clamp(1.5rem, 4.4vw, 2.1rem); line-height: 1.7; }
-.arabic { font-weight: 500; }
+.menu-arabic, .arabic, .arabic-brand-title, .arabic-brand-subtitle {
+  font-family: var(--font-arabic);
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+.menu-arabic {
+  direction: rtl;
+  text-align: right;
+  font-size: clamp(1.55rem, 4.6vw, 2.2rem);
+  line-height: 1.9;
+  font-weight: 400;
+  color: var(--deep-pine);
+  white-space: pre-line;
+}
+.arabic { font-weight: 400; }
 .location-btn {
   position: absolute;
   top: 18px;
@@ -490,4 +514,36 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
 @media (max-width: 390px) {
   .location-btn { width: 40px; height: 40px; top: 14px; right: 14px; }
   .suggestion-row { align-items: flex-start; }
+}
+
+
+/* Revisi v6 - samakan rendering Arab dengan cakgup/pagipetang */
+.arabic,
+.menu-arabic {
+  font-family: "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif !important;
+  direction: rtl;
+  text-align: right;
+  color: var(--deep-pine);
+  letter-spacing: 0;
+  font-weight: 400 !important;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  white-space: pre-line;
+}
+.arabic {
+  font-size: var(--font-arabic-size);
+  line-height: 2.25;
+}
+.menu-arabic {
+  font-size: clamp(1.55rem, 4.6vw, 2.2rem);
+  line-height: 1.9;
+}
+.arabic-brand-title,
+.arabic-brand-subtitle {
+  font-family: "Amiri Quran", "Noto Naskh Arabic", "Traditional Arabic", "Scheherazade New", serif !important;
+}
+@media (max-width: 390px) {
+  .arabic { line-height: 2.25; }
 }
