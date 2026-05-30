@@ -1,5 +1,5 @@
-const CACHE_NAME = 'ppsa-dua-v1.0.0';
-const APP_SHELL = [
+const CACHE_NAME = 'ppsa-cache-v2';
+const APP_ASSETS = [
   './',
   './index.html',
   './css/styles.css',
@@ -13,7 +13,7 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_ASSETS)));
   self.skipWaiting();
 });
 
@@ -25,12 +25,19 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
+  const request = event.request;
+  const url = new URL(request.url);
+
+  if (url.origin !== self.location.origin) {
+    event.respondWith(fetch(request).catch(() => new Response('', { status: 503, statusText: 'Offline' })));
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+    caches.match(request).then(cached => cached || fetch(request).then(response => {
+      const clone = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
       return response;
-    }).catch(() => caches.match('./index.html')))
+    }))
   );
 });

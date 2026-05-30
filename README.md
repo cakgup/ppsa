@@ -1,46 +1,63 @@
-# Majmu'ah ad-Du'a Sunan Ampel
+# PPSA - Majmu'ah ad-Du'a Sunan Ampel
 
-Aplikasi web/PWA ringan untuk digitalisasi **Kumpulan Doa Pondok Pesantren Sunan Ampel, Jombang**. Proyek ini disiapkan agar dapat langsung diletakkan pada repository GitHub Pages `cakgup/ppsa`.
+Aplikasi static PWA untuk digitalisasi **Majmu'ah ad-Du'a Pondok Pesantren Sunan Ampel**.
 
-## Fitur utama
+## Fitur
 
-- Splash screen dengan logo pesantren dan transisi fade-out ±2 detik.
-- Beranda dengan widget waktu lokal dan rekomendasi amalan berbasis waktu.
-- Mode baca tersegmentasi: satu baris Arab, satu baris arti Indonesia.
-- Font Arab dapat diperbesar/diperkecil pada rentang 16–32 px.
-- Tasbih digital dengan counter, target hitungan, reset, dan haptic feedback bila perangkat mendukung.
-- Offline-first menggunakan Service Worker.
-- Tema warna Deep Pine `#1A4314`, Putih Gading `#FDFBF7`, dan Emas Muted `#D4AF37`.
-- Siap untuk layar mobile HD 720×1280 px dan tetap responsif di layar kecil.
+- Splash screen dengan judul Arab.
+- Beranda dengan jadwal shalat berikutnya.
+- Jadwal shalat memakai **EQuran.id API** dengan sumber data **Bimas Islam Kementerian Agama RI**.
+- Default wilayah: **Kab. Jombang, Jawa Timur**.
+- Pengaturan wilayah manual berdasarkan provinsi dan kabupaten/kota.
+- Tombol GPS untuk membantu mencocokkan wilayah pengguna ke daftar kabupaten/kota.
+- Mode baca: **Arab saja** atau **Arab + Arti**.
+- Pengaturan ukuran font Arab 16–32 px.
+- Tasbih digital dengan target dan haptic feedback.
+- Offline-first untuk teks doa, wirid, dan tasbih.
+- Cache jadwal shalat bulan berjalan di `localStorage`.
 
-## Struktur folder
+## Struktur File
 
 ```text
 .
 ├── index.html
+├── css/styles.css
+├── js/app.js
+├── data/doa.json
+├── assets/logo.png
 ├── manifest.webmanifest
-├── sw.js
-├── assets/
-│   ├── logo.png
-│   ├── icon-192.png
-│   ├── icon-512.png
-│   └── icon-maskable-512.png
-├── css/
-│   └── styles.css
-├── js/
-│   └── app.js
-└── data/
-    └── doa.json
+└── sw.js
 ```
 
-## Cara memasukkan ke repository
+## Cara Menjalankan Lokal
 
-1. Ekstrak isi ZIP ini.
-2. Salin seluruh isi folder ke root repository `cakgup/ppsa`.
-3. Commit dan push ke GitHub.
-4. Aktifkan GitHub Pages dari branch utama dan folder root.
-5. Buka halaman GitHub Pages repository.
+Jangan buka langsung `index.html` melalui `file://`, karena browser dapat memblokir `fetch('./data/doa.json')` dan API.
 
-## Catatan pengembangan lanjutan
+Jalankan server lokal:
 
-Versi ini menggunakan pendekatan jam lokal perangkat untuk memberi rekomendasi amalan. Integrasi jadwal salat regional, arah kiblat, notifikasi push, dan pembaruan konten dari backend dapat ditambahkan pada iterasi berikutnya.
+```bash
+python -m http.server 8000
+```
+
+Lalu buka:
+
+```text
+http://localhost:8000
+```
+
+## Deploy
+
+Bisa langsung diunggah ke:
+
+- GitHub Pages
+- Vercel
+- Cloudflare Pages / pages.dev
+
+Pastikan seluruh isi folder ini berada di root repository `cakgup/ppsa`.
+
+## Catatan Jadwal Shalat
+
+- Teks doa tetap dapat dibaca offline.
+- Jadwal shalat membutuhkan internet saat pertama kali mengambil data wilayah/bulan berjalan.
+- Setelah jadwal berhasil diambil, data bulan berjalan tersimpan di browser pengguna.
+- Fitur GPS hanya membantu mendeteksi wilayah dan tetap membutuhkan izin lokasi dari pengguna.
