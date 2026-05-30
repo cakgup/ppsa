@@ -216,7 +216,7 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 }
 .reader-head { position: sticky; top: 73px; z-index: 10; padding: 12px; background: rgba(253,251,247,.96); border: 1px solid var(--border); border-radius: var(--radius-lg); backdrop-filter: blur(12px); }
 .field { display: grid; gap: 6px; }
-.field label { color: var(--deep-pine); font-size: .78rem; font-weight: 800; }
+.field label { color: var(--deep-pine); font-size: 1rem; font-weight: 800; line-height: 1.4; }
 .field input, .field select {
   width: 100%;
   min-height: 44px;
@@ -408,8 +408,25 @@ a { color: var(--deep-pine); font-weight: 800; }
   border-radius: 16px;
   background: rgba(212,175,55,.12);
   color: var(--deep-pine);
-  font-weight: 900;
   line-height: 1.45;
+}
+.subsection-label-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.subsection-label-id {
+  font-size: clamp(1rem, 3.8vw, 1.2rem);
+  font-weight: 400;
+}
+.subsection-label-ar {
+  direction: rtl;
+  text-align: right;
+  font-family: var(--font-arabic);
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-weight: 900;
+  line-height: 1.6;
 }
 .prayer-card.arabic-only .translation { display: none; }
 .location-grid {
@@ -425,7 +442,7 @@ a { color: var(--deep-pine); font-weight: 800; }
 .reader-title {
   color: var(--deep-pine);
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.4;
 }
 .reader-subtitle {

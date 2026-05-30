@@ -216,7 +216,6 @@ function renderReader() {
       </div>
       <div>
         <div class="reader-title">Mode tampilan bacaan</div>
-        <div class="reader-subtitle">Pilih sesuai kebutuhan saat membaca.</div>
         <div class="segmented" role="group" aria-label="Mode tampilan bacaan">
           <button type="button" data-mode="arabic_only" class="${state.textMode === 'arabic_only' ? 'active' : ''}">Arab saja</button>
           <button type="button" data-mode="arabic_translation" class="${state.textMode === 'arabic_translation' ? 'active' : ''}">Arab + Arti</button>
@@ -260,7 +259,7 @@ function renderPrayerItems(section) {
   }
   const showSubsectionTitle = subsections.length > 1 || !/^umum$/i.test(subsections[0]?.title || '');
   container.innerHTML = subsections.map(sub => {
-    const title = showSubsectionTitle ? `<div class="subsection-label">${escapeHtml(sub.title || 'Umum')}</div>` : '';
+    const title = showSubsectionTitle ? formatSubsectionTitle(sub.title || 'Umum') : '';
     const cards = (sub.items || []).map(item => prayerCard(item)).join('');
     return `${title}${cards}`;
   }).join('');
@@ -273,6 +272,24 @@ function renderPrayerItems(section) {
       startCounterFromItem(item, target);
     });
   });
+}
+
+
+function formatSubsectionTitle(title = '') {
+  const cleanTitle = String(title || 'Umum').trim();
+  const match = cleanTitle.match(/^(.+?)\s*\((.+)\)\s*$/);
+  if (!match) {
+    return `<div class="subsection-label">${escapeHtml(cleanTitle)}</div>`;
+  }
+
+  const arabicTitle = match[1].trim();
+  const indonesianTitle = match[2].trim();
+  return `
+    <div class="subsection-label subsection-label-split">
+      <span class="subsection-label-id">(${escapeHtml(indonesianTitle)})</span>
+      <span class="subsection-label-ar" lang="ar" dir="rtl">${escapeHtml(arabicTitle)}</span>
+    </div>
+  `;
 }
 
 function prayerCard(item) {

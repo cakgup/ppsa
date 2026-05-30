@@ -31,7 +31,7 @@
       "notes": [
         "Kolom arabic telah diganti dengan versi berharakat lebih lengkap.",
         "Kolom arabic_original mempertahankan teks sebelum perbaikan.",
-        "Beberapa redaksi yang tampak sebagai kesalahan OCR atau penulisan telah dinormalisasi secara hati-hati, misalnya وَوَافِقْنِي menjadi وَارْزُقْنِي dan الْحَمْدُ للهِ كُلِّ حَالِ menjadi الْحَمْدُ لِلَّهِ عَلَى كُلِّ حَالٍ.",
+        "Beberapa redaksi yang tampak sebagai kesalahan OCR atau penulisan telah dinormalisasi secara hati-hati, misalnya وَوَافِقْنِي menjadi وَوَفِّقْنِي dan الْحَمْدُ للهِ كُلِّ حَالِ menjadi الْحَمْدُ لِلَّهِ عَلَى كُلِّ حَالٍ.",
         "Bagian yang pada naskah referensi ditulis sebagai penanda bacaan, misalnya سورة الفاتحة dan titik-titik, tetap dipertahankan sebagai penanda dan tidak diperluas menjadi teks surah penuh."
       ],
       "arabic_display_added": true,
@@ -146,11 +146,11 @@
               "id": "02_tahmid_sebelum_zuhur_asar__02_sebelum_tahmid_sebelum_asar__item_002",
               "order": 2,
               "sequence": null,
-              "arabic": "رَبِّ زِدْنِي عِلْمًا نَافِعًا * وَارْزُقْنِي عَمَلًا صَالِحًا",
+              "arabic": "رَبِّ زِدْنِي عِلْمًا نَافِعًا * وَوَفِّقْنِي عَمَلًا صَالِحًا",
               "translation_id": "Ya Tuhanku, tambahkanlah kepadaku ilmu yang bermanfaat, dan bimbinglah aku untuk senantiasa beramal saleh.",
               "arabic_original": "رَبِّ زِدْنِي عِلْمًا نَافِعًا * وَوَافِقْنِي عَمَلًا صَالِحًا",
               "arabic_diacritics_status": "completed",
-              "arabic_display": "رَبِّ زِدْنِي عِلْمًا نَافِعًا، وَارْزُقْنِي عَمَلًا صَالِحًا",
+              "arabic_display": "رَبِّ زِدْنِي عِلْمًا نَافِعًا، وَوَفِّقْنِي عَمَلًا صَالِحًا",
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
