@@ -216,7 +216,8 @@ function renderReader() {
       </div>
       <div>
         <div class="reader-title">Mode tampilan bacaan</div>
-                <div class="segmented" role="group" aria-label="Mode tampilan bacaan">
+        <div class="reader-subtitle">Pilih sesuai kebutuhan saat membaca.</div>
+        <div class="segmented" role="group" aria-label="Mode tampilan bacaan">
           <button type="button" data-mode="arabic_only" class="${state.textMode === 'arabic_only' ? 'active' : ''}">Arab saja</button>
           <button type="button" data-mode="arabic_translation" class="${state.textMode === 'arabic_translation' ? 'active' : ''}">Arab + Arti</button>
         </div>
@@ -249,19 +250,6 @@ function renderReader() {
   renderPrayerItems(section);
 }
 
-
-function formatSubsectionLabel(title = '') {
-  const value = String(title || '').trim();
-  const match = value.match(/^(.*?)\s*\(([^()]+)\)\s*$/);
-  if (!match) return escapeHtml(value);
-  const arabic = match[1].trim();
-  const translation = match[2].trim();
-  return `
-    <span class="subsection-arabic" lang="ar" dir="rtl">${escapeHtml(arabic)}</span>
-    <span class="subsection-translation">(${escapeHtml(translation)})</span>
-  `;
-}
-
 function renderPrayerItems(section) {
   const container = document.querySelector('#readerContent');
   if (!container) return;
@@ -272,7 +260,7 @@ function renderPrayerItems(section) {
   }
   const showSubsectionTitle = subsections.length > 1 || !/^umum$/i.test(subsections[0]?.title || '');
   container.innerHTML = subsections.map(sub => {
-    const title = showSubsectionTitle ? `<div class="subsection-label">${formatSubsectionLabel(sub.title || 'Umum')}</div>` : '';
+    const title = showSubsectionTitle ? `<div class="subsection-label">${escapeHtml(sub.title || 'Umum')}</div>` : '';
     const cards = (sub.items || []).map(item => prayerCard(item)).join('');
     return `${title}${cards}`;
   }).join('');
