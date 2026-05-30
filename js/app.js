@@ -282,7 +282,7 @@ function prayerCard(item) {
         ${repeatOptions.map(target => `<button class="secondary-btn" data-start-counter="${item.id}" data-target="${target}">Tasbih ×${target}</button>`).join('')}
       </div>`
     : '';
-  const arabic = normalizeArabicPunctuation(item.arabic || '');
+  const arabic = normalizeArabicPunctuation(item.arabic_display || item.arabic || '');
   const translation = clean(item.translation_id || '');
   return `
     <article class="prayer-card card ${state.textMode === 'arabic_only' ? 'arabic-only' : ''}">
@@ -298,13 +298,18 @@ function prayerCard(item) {
 }
 
 function normalizeArabicPunctuation(value = '') {
-  return String(value).replace(/\s*،\s*/g, ' * ').replace(/\s+\*\s+/g, ' * ').trim();
+  return String(value)
+    .replace(/ـ/g, '')
+    .replace(/\s*\*\s*/g, '، ')
+    .replace(/\s*،\s*/g, '، ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
 function startCounterFromItem(item, target = 0) {
   state.counter = 0;
   state.target = Number(target) || 0;
-  state.counterLabel = clean(item?.translation_id || item?.arabic || 'Tasbih');
+  state.counterLabel = clean(item?.translation_id || item?.arabic_display || item?.arabic || 'Tasbih');
   localStorage.setItem('ppsa-counter', state.counter);
   localStorage.setItem('ppsa-target', state.target);
   localStorage.setItem('ppsa-counter-label', state.counterLabel);

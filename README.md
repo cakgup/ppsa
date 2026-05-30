@@ -61,3 +61,11 @@ Pastikan seluruh isi folder ini berada di root repository `cakgup/ppsa`.
 - Jadwal shalat membutuhkan internet saat pertama kali mengambil data wilayah/bulan berjalan.
 - Setelah jadwal berhasil diambil, data bulan berjalan tersimpan di browser pengguna.
 - Fitur GPS hanya membantu mendeteksi wilayah dan tetap membutuhkan izin lokasi dari pengguna.
+
+
+## Catatan Normalisasi Teks Arab v5
+
+- `data/doa.json` sekarang memiliki field tambahan `arabic_display`.
+- Field `arabic` tetap dipertahankan sebagai teks canonical PPSA.
+- Aplikasi menampilkan `arabic_display` agar tampilan Arab lebih halus, dengan separator koma Arab `،` seperti gaya file runtime TTS.
+- Jika `arabic_display` tidak tersedia, aplikasi otomatis fallback ke `arabic`.
