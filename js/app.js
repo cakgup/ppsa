@@ -532,8 +532,8 @@ function renderProfile() {
 
       <div class="card profile-card">
         <h3>Kepengasuhan PPSA Masa Kini</h3>
-        <p>Estafet perjuangan PPSA kini dilanjutkan oleh KH. Taufiqurrahman, S.H. bersama Ibu Nyai Hj. Maryam Muhsinah, putri pasangan pendiri KH. Mahfudz Anwar dan Nyai Hj. Abidah. Di bawah kepemimpinan mereka, PPSA berkembang melalui pengelolaan lembaga formal seperti MA Terpadu Sunan Ampel dan SMK Sunan Ampel Jombang.</p>
-        <p>Pada awal 2024, keluarga besar pesantren berduka atas wafatnya Ibu Nyai Hj. Maryam Muhsinah. Meski demikian, semangat dakwah, keteladanan, dan pengembangan pendidikan santri di PPSA tetap berjalan istiqamah hingga hari ini.</p>
+        <p>Estafet perjuangan PPSA kini dilanjutkan oleh KH. Taufiqurrahman, S.H. bersama Ibu Nyai Hj. Maryam Muhsinah, putri pasangan pendiri KH. Mahfudz Anwar dan Nyai Hj. Abidah. Di bawah kepemimpinan beliau, PPSA berkembang melalui pengelolaan lembaga formal seperti MA Terpadu Sunan Ampel dan SMK Sunan Ampel Jombang.</p>
+        <p>Pada 7 Februari 2024, keluarga besar pesantren berduka atas wafatnya Ibu Nyai Hj. Maryam Muhsinah. Meski demikian, semangat dakwah, keteladanan, dan pengembangan pendidikan santri di PPSA tetap berjalan istiqamah hingga hari ini.</p>
       </div>
     </section>
   `;
