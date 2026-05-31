@@ -157,7 +157,7 @@ function renderHome() {
       <p>Waktu shalat berikutnya ditampilkan berdasarkan wilayah pilihan. Jadwal shalat diambil dari data Bimas Islam Kementerian Agama RI.</p>
       <div class="clock-row">
         <div>
-          <div class="prayer-next" id="prayerNext">Memuat jadwal...</div>
+          <div class="prayer-next" id="prayerNext"><span class="prayer-next-label">Memuat jadwal</span></div>
           <p class="prayer-countdown" id="prayerCountdown">${formatDate(now)}</p>
           <p class="prayer-location" id="prayerLocation">Wilayah: ${escapeHtml(state.prayerCity)}, ${escapeHtml(state.prayerProvince)}</p>
         </div>
@@ -422,7 +422,6 @@ function renderSettings() {
           <div class="tasbih-controls" style="justify-content:flex-start">
             <button class="primary-btn" id="saveLocationBtn">Simpan Wilayah</button>
             <button class="secondary-btn" id="gpsLocationBtn">Gunakan GPS</button>
-            <button class="ghost-btn" id="defaultLocationBtn">Default Jombang</button>
           </div>
           <p class="status-line" id="locationStatus">Wilayah aktif: ${escapeHtml(state.prayerCity)}, ${escapeHtml(state.prayerProvince)}</p>
         </div>
@@ -570,7 +569,7 @@ async function refreshPrayerWidget() {
   if (!nextEl || !countdownEl || !locationEl) return;
 
   const renderLoading = (message) => {
-    nextEl.textContent = message;
+    nextEl.innerHTML = `<span class="prayer-next-label">${escapeHtml(message)}</span>`;
     countdownEl.textContent = formatDate(new Date());
     locationEl.textContent = `Wilayah: ${state.prayerCity}, ${state.prayerProvince}`;
   };
@@ -581,11 +580,11 @@ async function refreshPrayerWidget() {
     const update = () => {
       const next = getNextPrayerFromSchedule(schedule);
       if (!next) {
-        nextEl.textContent = 'Jadwal tidak tersedia';
+        nextEl.innerHTML = '<span class="prayer-next-label">Jadwal tidak tersedia</span>';
         countdownEl.textContent = 'Silakan atur wilayah atau coba saat online.';
         return;
       }
-      nextEl.textContent = `${next.label} — ${next.time}`;
+      nextEl.innerHTML = `<span class="prayer-next-label">${escapeHtml(next.label)}</span><span class="prayer-next-time">- ${escapeHtml(next.time)}</span>`;
       countdownEl.textContent = `Menuju ${next.label}: ${formatCountdown(next.date - new Date())}`;
       locationEl.textContent = `Wilayah: ${schedule.data.kabkota}, ${schedule.data.provinsi} • ${formatDate(new Date())}`;
       state.currentSuggestion = getSuggestionByPrayer(next.label);
@@ -595,10 +594,10 @@ async function refreshPrayerWidget() {
       }
     };
     update();
-    window.__ppsaPrayerTimer = window.setInterval(update, 60 * 1000);
+    window.__ppsaPrayerTimer = window.setInterval(update, 1000);
   } catch (error) {
     renderLoading('Jadwal belum tersedia');
-    countdownEl.textContent = 'Cek koneksi internet atau gunakan wilayah default Jombang.';
+    countdownEl.textContent = 'Cek koneksi internet atau atur wilayah secara manual.';
   }
 }
 
@@ -664,11 +663,13 @@ function getNextPrayerFromSchedule(schedulePayload) {
 
 function formatCountdown(ms) {
   if (!Number.isFinite(ms) || ms < 0) return 'segera';
-  const totalMinutes = Math.max(0, Math.floor(ms / 60000));
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  if (hours <= 0) return `${minutes} menit`;
-  return `${hours} jam ${minutes} menit`;
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  if (hours > 0) return `${hours} jam ${minutes} menit ${seconds} detik`;
+  if (minutes > 0) return `${minutes} menit ${seconds} detik`;
+  return `${seconds} detik`;
 }
 
 async function hydrateLocationControls() {
@@ -676,7 +677,6 @@ async function hydrateLocationControls() {
   const citySelect = document.querySelector('#citySelect');
   const status = document.querySelector('#locationStatus');
   const saveBtn = document.querySelector('#saveLocationBtn');
-  const defaultBtn = document.querySelector('#defaultLocationBtn');
   const gpsBtn = document.querySelector('#gpsLocationBtn');
   if (!provinceSelect || !citySelect) return;
 
@@ -720,13 +720,6 @@ async function hydrateLocationControls() {
     } catch (error) {
       setStatus('Wilayah disimpan, tetapi jadwal belum bisa diperbarui. Coba lagi saat online.');
     }
-  });
-
-  defaultBtn?.addEventListener('click', async () => {
-    state.prayerProvince = DEFAULT_PROVINCE;
-    state.prayerCity = DEFAULT_CITY;
-    persistPrayerLocation();
-    renderSettings();
   });
 
   gpsBtn?.addEventListener('click', async () => {
