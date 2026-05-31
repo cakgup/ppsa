@@ -90,18 +90,18 @@
       "app_category": "Informasi"
     },
     {
-      "id": "02_tahmid_sebelum_zuhur_asar",
-      "title": "TAHMID SEBELUM ZUHUR & ASAR",
+      "id": "02_pujian_sebelum_dhuhur_asar",
+      "title": "PUJIAN SEBELUM DHUHUR & ASAR",
       "order": 2,
       "subsections": [
         {
-          "id": "02_tahmid_sebelum_zuhur_asar__01_sebelum_tahmid_sebelum_zuhur",
-          "title": "التَّحْمِيدُ قَبْلَ الظُّهْرِ (Tahmid Sebelum Zuhur)",
+          "id": "02_pujian_sebelum_dhuhur_asar__01_sebelum_pujian_sebelum_dhuhur",
+          "title": "التَّحْمِيدُ قَبْلَ الظُّهْرِ (Pujian Sebelum Dhuhur)",
           "order": 1,
           "number": 1,
           "items": [
             {
-              "id": "02_tahmid_sebelum_zuhur_asar__01_sebelum_tahmid_sebelum_zuhur__item_001",
+              "id": "02_pujian_sebelum_dhuhur_asar__01_sebelum_pujian_sebelum_dhuhur__item_001",
               "order": 1,
               "sequence": null,
               "arabic": "اللَّهُمَّ صَلِّ عَلَى نُورِ الْأَنْوَارِ * وَسِرِّ الْأَسْرَارِ * وَتِرْيَاقِ الْأَغْيَارِ * وَمِفْتَاحِ بَابِ الْيَسَارِ",
@@ -112,7 +112,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "02_tahmid_sebelum_zuhur_asar__01_sebelum_tahmid_sebelum_zuhur__item_002",
+              "id": "02_pujian_sebelum_dhuhur_asar__01_sebelum_pujian_sebelum_dhuhur__item_002",
               "order": 2,
               "sequence": null,
               "arabic": "سَيِّدِنَا وَمَوْلَانَا مُحَمَّدٍ الْمُخْتَارِ * وَآلِهِ الْأَطْهَارِ * وَأَصْحَابِهِ الْأَخْيَارِ * عَدَدَ نِعَمِ اللهِ وَأَفْضَالِهِ",
@@ -123,16 +123,16 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             }
           ],
-          "title_original": "التحميد sebelum الظهر (Tahmid Sebelum Zuhur)"
+          "title_original": "التحميد sebelum الظهر (Pujian Sebelum Dhuhur)"
         },
         {
-          "id": "02_tahmid_sebelum_zuhur_asar__02_sebelum_tahmid_sebelum_asar",
-          "title": "التَّحْمِيدُ قَبْلَ الْعَصْرِ (Tahmid Sebelum Asar)",
+          "id": "02_pujian_sebelum_dhuhur_asar__02_sebelum_pujian_sebelum_asar",
+          "title": "التَّحْمِيدُ قَبْلَ الْعَصْرِ (Pujian Sebelum Asar)",
           "order": 2,
           "number": 2,
           "items": [
             {
-              "id": "02_tahmid_sebelum_zuhur_asar__02_sebelum_tahmid_sebelum_asar__item_001",
+              "id": "02_pujian_sebelum_dhuhur_asar__02_sebelum_pujian_sebelum_asar__item_001",
               "order": 1,
               "sequence": null,
               "arabic": "أَسْتَغْفِرُ اللهَ رَبَّ الْبَرَايَا * أَسْتَغْفِرُ اللهَ مِنَ الْخَطَايَا",
@@ -143,7 +143,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "02_tahmid_sebelum_zuhur_asar__02_sebelum_tahmid_sebelum_asar__item_002",
+              "id": "02_pujian_sebelum_dhuhur_asar__02_sebelum_pujian_sebelum_asar__item_002",
               "order": 2,
               "sequence": null,
               "arabic": "رَبِّ زِدْنِي عِلْمًا نَافِعًا * وَوَفِّقْنِي عَمَلًا صَالِحًا",
@@ -154,7 +154,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "02_tahmid_sebelum_zuhur_asar__02_sebelum_tahmid_sebelum_asar__item_003",
+              "id": "02_pujian_sebelum_dhuhur_asar__02_sebelum_pujian_sebelum_asar__item_003",
               "order": 3,
               "sequence": null,
               "arabic": "يَا حَنَّانُ يَا مَنَّانُ * يَا دَيَّانُ يَا سُلْطَانُ",
@@ -165,27 +165,27 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             }
           ],
-          "title_original": "التحميد sebelum العصر (Tahmid Sebelum Asar)"
+          "title_original": "التحميد sebelum العصر (Pujian Sebelum Asar)"
         }
       ],
-      "app_category": "Tahmid Sebelum Shalat",
+      "app_category": "Pujian Sebelum Shalat",
       "display_title_arabic": "التَّحْمِيدُ قَبْلَ الظُّهْرِ وَالْعَصْرِ",
-      "display_title": "Tahmid Sebelum Zuhur & Asar",
-      "display_subtitle": "Tahmid Sebelum Zuhur & Asar"
+      "display_title": "Pujian Sebelum Dhuhur & Asar",
+      "display_subtitle": "Pujian Sebelum Dhuhur & Asar"
     },
     {
-      "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf",
-      "title": "TAHMID SEBELUM MAGRIB (Syi'ir Al-I'tiraf)",
+      "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf",
+      "title": "PUJIAN SEBELUM MAGRIB (Syi'ir Al-I'tiraf)",
       "order": 3,
       "subsections": [
         {
-          "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf__01_tahmid_sebelum_magrib",
-          "title": "التَّحْمِيدُ قَبْلَ الْمَغْرِبِ (Tahmid Sebelum Magrib)",
+          "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf__01_pujian_sebelum_magrib",
+          "title": "التَّحْمِيدُ قَبْلَ الْمَغْرِبِ (Pujian Sebelum Magrib)",
           "order": 1,
           "number": null,
           "items": [
             {
-              "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf__01_tahmid_sebelum_magrib__item_001",
+              "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf__01_pujian_sebelum_magrib__item_001",
               "order": 1,
               "sequence": null,
               "arabic": "إِلٰهِي لَسْتُ لِلْفِرْدَوْسِ أَهْلًا * وَلَا أَقْوَى عَلَى نَارِ الْجَحِيمِ",
@@ -196,7 +196,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf__01_tahmid_sebelum_magrib__item_002",
+              "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf__01_pujian_sebelum_magrib__item_002",
               "order": 2,
               "sequence": null,
               "arabic": "فَهَبْ لِي تَوْبَةً وَاغْفِرْ ذُنُوبِي * فَإِنَّكَ غَافِرُ الذَّنْبِ الْعَظِيمِ",
@@ -207,7 +207,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf__01_tahmid_sebelum_magrib__item_003",
+              "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf__01_pujian_sebelum_magrib__item_003",
               "order": 3,
               "sequence": null,
               "arabic": "ذُنُوبِي مِثْلُ أَعْدَادِ الرِّمَالِ * فَهَبْ لِي تَوْبَةً يَا ذَا الْجَلَالِ",
@@ -218,7 +218,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf__01_tahmid_sebelum_magrib__item_004",
+              "id": "03_pujian_sebelum_magrib_syi_ir_al_i_tiraf__01_pujian_sebelum_magrib__item_004",
               "order": 4,
               "sequence": null,
               "arabic": "وَعُمْرِي نَاقِصٌ فِي كُلِّ يَوْمٍ * وَذَنْبِي زَائِدٌ كَيْفَ احْتِمَالِي",
@@ -229,27 +229,27 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             }
           ],
-          "title_original": "التحميد قبل المغرب (Tahmid Sebelum Magrib)"
+          "title_original": "التحميد قبل المغرب (Pujian Sebelum Magrib)"
         }
       ],
-      "app_category": "Tahmid Sebelum Shalat",
+      "app_category": "Pujian Sebelum Shalat",
       "display_title_arabic": "التَّحْمِيدُ قَبْلَ الْمَغْرِبِ",
-      "display_title": "Tahmid Sebelum Magrib (Syi'ir Al-I'tiraf)",
-      "display_subtitle": "Tahmid Sebelum Magrib (Syi'ir Al-I'tiraf)"
+      "display_title": "Pujian Sebelum Magrib (Syi'ir Al-I'tiraf)",
+      "display_subtitle": "Pujian Sebelum Magrib (Syi'ir Al-I'tiraf)"
     },
     {
-      "id": "04_tahmid_sebelum_isya_subuh",
-      "title": "TAHMID SEBELUM ISYA & SUBUH",
+      "id": "04_pujian_sebelum_isya_subuh",
+      "title": "PUJIAN SEBELUM ISYA & SUBUH",
       "order": 4,
       "subsections": [
         {
-          "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi",
-          "title": "التَّحْمِيدُ قَبْلَ الْعِشَاءِ (Tahmid Sebelum Isya - Syi'ir Khashais an-Nabi)",
+          "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi",
+          "title": "التَّحْمِيدُ قَبْلَ الْعِشَاءِ (Pujian Sebelum Isya - Syi'ir Khashais an-Nabi)",
           "order": 1,
           "number": 1,
           "items": [
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_001",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_001",
               "order": 1,
               "sequence": null,
               "arabic": "لَمْ يَحْتَلِمْ قَطُّ طٰهَ مُطْلَقًا أَبَدًا * وَمَا تَثَاءَبَ أَصْلًا فِي مَدَى الزَّمَانِ",
@@ -260,7 +260,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_002",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_002",
               "order": 2,
               "sequence": null,
               "arabic": "مِنْهُ الدَّوَابُّ فَلَمْ تَهْرُبْ وَمَا وَقَعَتْ * ذُبَابَةٌ أَبَدًا فِي جِسْمِهِ الْحَسَنِ",
@@ -271,7 +271,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_003",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_003",
               "order": 3,
               "sequence": null,
               "arabic": "بِخَلْفِهِ كَأَمَامٍ رُؤْيَةٌ ثَبَتَتْ * وَلَا يُرَى أَثَرُ بَوْلٍ مِنْهُ فِي عَلَنِ",
@@ -282,7 +282,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_004",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_004",
               "order": 4,
               "sequence": null,
               "arabic": "وَقَلْبُهُ لَمْ يَنَمْ وَالْعَيْنُ قَدْ نَامَتْ * وَلَا يُرَى ظِلُّهُ فِي الشَّمْسِ ذَا ثَمَنِ",
@@ -293,7 +293,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_005",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_005",
               "order": 5,
               "sequence": null,
               "arabic": "كَتِفَاهُ قَدْ عَلَتَا قَوْمًا إِذَا جَلَسُوا * عِنْدَ الْوِلَادَةِ مَخْتُونًا فَقَدْ عُلِنَ",
@@ -304,7 +304,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__01_sebelum_tahmid_sebelum_isya_syi_ir_khashais_an_nabi__item_006",
+              "id": "04_pujian_sebelum_isya_subuh__01_sebelum_pujian_sebelum_isya_syi_ir_khashais_an_nabi__item_006",
               "order": 6,
               "sequence": null,
               "arabic": "هٰذِهِ الْخَصَائِصُ فَاحْفَظْهَا لِتَأْمَنَ مِنْ * شَرِّ نَارٍ وَسُرَّاقٍ وَمِنْ مِحَنِ",
@@ -315,16 +315,16 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             }
           ],
-          "title_original": "التحميد sebelum العشاء (Tahmid Sebelum Isya - Syi'ir Khashais an-Nabi)"
+          "title_original": "التحميد sebelum العشاء (Pujian Sebelum Isya - Syi'ir Khashais an-Nabi)"
         },
         {
-          "id": "04_tahmid_sebelum_isya_subuh__02_sebelum_tahmid_sebelum_subuh",
-          "title": "التَّحْمِيدُ قَبْلَ الصُّبْحِ (Tahmid Sebelum Subuh)",
+          "id": "04_pujian_sebelum_isya_subuh__02_sebelum_pujian_sebelum_subuh",
+          "title": "التَّحْمِيدُ قَبْلَ الصُّبْحِ (Pujian Sebelum Subuh)",
           "order": 2,
           "number": 2,
           "items": [
             {
-              "id": "04_tahmid_sebelum_isya_subuh__02_sebelum_tahmid_sebelum_subuh__item_001",
+              "id": "04_pujian_sebelum_isya_subuh__02_sebelum_pujian_sebelum_subuh__item_001",
               "order": 1,
               "sequence": null,
               "arabic": "سُبْحَانَ اللهِ الْعَظِيمِ * سُبْحَانَ اللهِ وَبِحَمْدِهِ",
@@ -335,7 +335,7 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
-              "id": "04_tahmid_sebelum_isya_subuh__02_sebelum_tahmid_sebelum_subuh__item_002",
+              "id": "04_pujian_sebelum_isya_subuh__02_sebelum_pujian_sebelum_subuh__item_002",
               "order": 2,
               "sequence": null,
               "arabic": "عَالِمُ الْغَيْبِ وَالشَّهَادَةِ الْعَزِيزُ الرَّحِيمُ * عَالِمُ السِّرِّ وَالْأَخْفَى * فَيُنَبِّئُكُمْ بِمَا كُنْتُمْ تَعْمَلُونَ",
@@ -346,13 +346,13 @@
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             }
           ],
-          "title_original": "التحميد sebelum الصبح (Tahmid Sebelum Subuh)"
+          "title_original": "التحميد sebelum الصبح (Pujian Sebelum Subuh)"
         }
       ],
-      "app_category": "Tahmid Sebelum Shalat",
+      "app_category": "Pujian Sebelum Shalat",
       "display_title_arabic": "التَّحْمِيدُ قَبْلَ الْعِشَاءِ وَالصُّبْحِ",
-      "display_title": "Tahmid Sebelum Isya & Subuh",
-      "display_subtitle": "Tahmid Sebelum Isya & Subuh"
+      "display_title": "Pujian Sebelum Isya & Subuh",
+      "display_subtitle": "Pujian Sebelum Isya & Subuh"
     },
     {
       "id": "05_wirid_setelah_shalat_fardu_asmaul_husna",
@@ -366,19 +366,8 @@
           "number": null,
           "items": [
             {
-              "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_001",
-              "order": 1,
-              "sequence": null,
-              "arabic": "أَوْرَادُ صَلَاةٍ مَفْرُوضَةٍ",
-              "translation_id": "Wirid Shalat Fardu",
-              "arabic_original": "أَوْرَادُ صَلَاةٍ مَفْرُوْضَةٍ",
-              "arabic_diacritics_status": "completed",
-              "arabic_display": "أَوْرَادُ صَلَاةٍ مَفْرُوضَةٍ",
-              "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
-            },
-            {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_002",
-              "order": 2,
+              "order": 1,
               "sequence": 1,
               "arabic": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ الَّذِي لَا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ (×٣)",
               "translation_id": "\"Aku memohon ampun kepada Allah Yang Maha Agung, yang tiada Tuhan selain Dia, Yang Maha Hidup lagi senantiasa mengurusi makhluk-Nya, dan aku bertaubat kepada-Nya.\" (3 kali)",
@@ -400,18 +389,18 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_003",
-              "order": 3,
+              "order": 2,
               "sequence": 2,
-              "arabic": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوقِ الْوَاجِبَةِ عَلَيَّ وَلِجَمِيعِ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
-              "translation_id": "Aku memohon ampun kepada Allah Yang Maha Agung untuk diriku, kedua orang tuaku, para pemilik hak yang wajib atas diriku, serta untuk seluruh kaum muslimin dan muslimat, mukminin dan mukminat, baik yang masih hidup maupun yang telah wafat.",
-              "arabic_original": "أَسْتَغْفِرُ اللهَ الْعَظِيْمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوْقِ الْوَاجِبَةِ عَلَيَّ وَلِجَمِيْعِ الْمُسْلِمِيْنَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِيْنَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
+              "arabic": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوقِ الْوَاجِبَةِ عَلَيَّ وَلِمَشَايِخِنَا وَلِجَمِيعِ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
+              "translation_id": "Aku memohon ampun kepada Allah Yang Maha Agung untuk diriku, kedua orang tuaku, orang-orang yang memiliki hak wajib atasku, para masyayikh kami, serta seluruh kaum muslimin dan muslimat, mukminin dan mukminat, baik yang masih hidup maupun yang telah wafat.",
+              "arabic_original": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوقِ الْوَاجِبَةِ عَلَيَّ وَلِمَشَايِخِنَا وَلِجَمِيعِ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
               "arabic_diacritics_status": "completed",
-              "arabic_display": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوقِ الْوَاجِبَةِ عَلَيَّ وَلِجَمِيعِ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
+              "arabic_display": "أَسْتَغْفِرُ اللهَ الْعَظِيمَ لِي وَلِوَالِدَيَّ وَلِأَصْحَابِ الْحُقُوقِ الْوَاجِبَةِ عَلَيَّ وَلِمَشَايِخِنَا وَلِجَمِيعِ الْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ",
               "arabic_display_note": "Versi tampilan: separator * dinormalisasi menjadi koma Arab، tatweel dihapus, dan spasi dirapikan. Field arabic tetap menjadi teks canonical."
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_004",
-              "order": 4,
+              "order": 3,
               "sequence": 3,
               "arabic": "لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ * لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ * يُحْيِي وَيُمِيتُ * وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ (×٣ / ×١٠ / ×٣٠)",
               "translation_id": "\"Tiada Tuhan selain Allah yang Maha Esa, tiada sekutu bagi-Nya. Bagi-Nya segala kerajaan dan bagi-Nya segala puji. Dialah Yang Menghidupkan dan Yang Mematikan, dan Dia Maha Kuasa atas segala sesuatu.\" (3, 10, atau 30 kali)",
@@ -437,7 +426,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_005",
-              "order": 5,
+              "order": 4,
               "sequence": 4,
               "arabic": "اللَّهُمَّ أَنْتَ السَّلَامُ * وَمِنْكَ السَّلَامُ * وَإِلَيْكَ يَعُودُ السَّلَامُ * فَحَيِّنَا رَبَّنَا بِالسَّلَامِ * وَأَدْخِلْنَا الْجَنَّةَ دَارَ السَّلَامِ * تَبَارَكْتَ رَبَّنَا وَتَعَالَيْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",
               "translation_id": "Ya Allah, Engkaulah Maha Kedamaian, dari-Mu lah kedamaian, dan kepada-Mu lah kembalinya kedamaian. Maka hidupkanlah kami, wahai Tuhan kami, dalam kedamaian, dan masukkanlah kami ke dalam surga, negeri kedamaian. Maha Suci Engkau, wahai Tuhan kami, dan Maha Tinggi Engkau, Wahai Pemilik Keagungan dan Kemuliaan.",
@@ -448,7 +437,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_006",
-              "order": 6,
+              "order": 5,
               "sequence": 5,
               "arabic": "بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ ... (سُورَةُ الْفَاتِحَةِ)",
               "translation_id": "(Membaca Surat Al-Fatihah)",
@@ -462,7 +451,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_007",
-              "order": 7,
+              "order": 6,
               "sequence": 6,
               "arabic": "آيَةُ الْكُرْسِيِّ: وَإِلٰهُكُمْ إِلٰهٌ وَاحِدٌ لَا إِلٰهَ إِلَّا هُوَ الرَّحْمٰنُ الرَّحِيمُ. اللهُ لَا إِلٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ * لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ * لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ * مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ * يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ * وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ * وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ * وَلَا يَئُودُهُ حِفْظُهُمَا * وَهُوَ الْعَلِيُّ الْعَظِيمُ",
               "translation_id": "(Membaca Ayat Kursi)",
@@ -473,7 +462,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_008",
-              "order": 8,
+              "order": 7,
               "sequence": 7,
               "arabic": "سُبْحَانَ اللهِ (×٣٣)",
               "translation_id": "\"Maha Suci Allah.\" (33 kali)",
@@ -495,7 +484,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_009",
-              "order": 9,
+              "order": 8,
               "sequence": 8,
               "arabic": "الْحَمْدُ لِلَّهِ عَلَى كُلِّ حَالٍ (×٣٣)",
               "translation_id": "\"Segala puji bagi Allah dalam setiap keadaan.\" (33 kali)",
@@ -517,7 +506,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_010",
-              "order": 10,
+              "order": 9,
               "sequence": 9,
               "arabic": "اللهُ أَكْبَرُ (×٣٣)",
               "translation_id": "\"Allah Maha Besar.\" (33 kali)",
@@ -539,7 +528,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_011",
-              "order": 11,
+              "order": 10,
               "sequence": null,
               "arabic": "اللهُ أَكْبَرُ كَبِيرًا * وَالْحَمْدُ لِلَّهِ كَثِيرًا * وَسُبْحَانَ اللهِ بُكْرَةً وَأَصِيلًا",
               "translation_id": "Allah Maha Besar dengan segala kebesaran-Nya, segala puji yang sebanyak-banyaknya bagi Allah, dan Maha Suci Allah di waktu pagi dan petang.",
@@ -550,7 +539,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_012",
-              "order": 12,
+              "order": 11,
               "sequence": null,
               "arabic": "لَا إِلٰهَ إِلَّا اللهُ وَحْدَهُ لَا شَرِيكَ لَهُ * لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ * يُحْيِي وَيُمِيتُ * وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
               "translation_id": "Tiada Tuhan selain Allah Yang Maha Esa, tiada sekutu bagi-Nya. Bagi-Nya segala kerajaan dan bagi-Nya segala puji, Dia Yang Menghidupkan dan Yang Mematikan, dan Dia Maha Kuasa atas segala sesuatu.",
@@ -561,7 +550,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_013",
-              "order": 13,
+              "order": 12,
               "sequence": null,
               "arabic": "وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ",
               "translation_id": "Tiada daya dan kekuatan melainkan dengan pertolongan Allah Yang Maha Tinggi lagi Maha Agung.",
@@ -572,7 +561,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_014",
-              "order": 14,
+              "order": 13,
               "sequence": null,
               "arabic": "أَفْضَلُ الذِّكْرِ فَاعْلَمْ أَنَّهُ: لَا إِلٰهَ إِلَّا اللهُ (×٤١ / ×٧١ / ×١٠٠)",
               "translation_id": "\"Ketahuilah bahwa zikir yang paling utama adalah: Tiada Tuhan selain Allah.\" (dibaca 41, 71, atau 100 kali)",
@@ -598,7 +587,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_015",
-              "order": 15,
+              "order": 14,
               "sequence": null,
               "arabic": "لَا إِلٰهَ إِلَّا اللهُ * مُحَمَّدٌ رَسُولُ اللهِ * صَلَّى اللهُ عَلَى مُحَمَّدٍ (×١٠٠)",
               "translation_id": "\"Tiada Tuhan selain Allah, Nabi Muhammad adalah utusan Allah. Semoga Allah memberikan shalawat kepada Nabi Muhammad.\" (100 kali)",
@@ -620,7 +609,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_016",
-              "order": 16,
+              "order": 15,
               "sequence": 10,
               "arabic": "يَا اللهُ يَا نُورُ يَا حَقُّ يَا مُبِينُ",
               "translation_id": "Wahai Allah, Wahai Zat Yang Maha Menerangi, Wahai Zat Yang Maha Benar, Wahai Zat Yang Maha Menjelaskan.",
@@ -631,7 +620,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_017",
-              "order": 17,
+              "order": 16,
               "sequence": 11,
               "arabic": "يَا اللهُ يَا رَحْمٰنُ يَا اللهُ يَا رَحِيمُ",
               "translation_id": "Wahai Allah, Wahai Zat Yang Maha Pengasih, Wahai Allah, Wahai Zat Yang Maha Penyayang.",
@@ -642,7 +631,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_018",
-              "order": 18,
+              "order": 17,
               "sequence": 12,
               "arabic": "يَا حَفِيظُ يَا نَصِيرُ يَا لَطِيفُ يَا اللهُ",
               "translation_id": "Wahai Zat Yang Maha Menjaga, Wahai Zat Yang Maha Penolong, Wahai Zat Yang Maha Lembut, Wahai Allah.",
@@ -653,7 +642,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_019",
-              "order": 19,
+              "order": 18,
               "sequence": 13,
               "arabic": "حَسْبُنَا اللهُ وَنِعْمَ الْوَكِيلُ * نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ (×٧)",
               "translation_id": "\"Cukuplah Allah bagi kami dan Dialah sebaik-baik pelindung, sebaik-baik pemimpin, dan sebaik-baik penolong.\" (7 kali)",
@@ -675,7 +664,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_020",
-              "order": 20,
+              "order": 19,
               "sequence": 14,
               "arabic": "يَا اللهُ يَا قَدِيمُ",
               "translation_id": "Wahai Allah, Wahai Zat Yang Maha Terdahulu (tanpa permulaan).",
@@ -686,7 +675,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_021",
-              "order": 21,
+              "order": 20,
               "sequence": 15,
               "arabic": "يَا بَدِيعُ",
               "translation_id": "Wahai Zat Yang Maha Pencipta keindahan semesta.",
@@ -697,7 +686,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_022",
-              "order": 22,
+              "order": 21,
               "sequence": 16,
               "arabic": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ الْعَلِيِّ الْعَظِيمِ (×٦٠٠)",
               "translation_id": "\"Tiada daya dan kekuatan melainkan dengan pertolongan Allah Yang Maha Tinggi lagi Maha Agung.\" (600 kali)",
@@ -719,7 +708,7 @@
             },
             {
               "id": "05_wirid_setelah_shalat_fardu_asmaul_husna__01_umum__item_023",
-              "order": 23,
+              "order": 22,
               "sequence": 17,
               "arabic": "هُوَ اللهُ الَّذِي لَا إِلٰهَ إِلَّا هُوَ",
               "translation_id": "Dialah Allah, yang tiada Tuhan selain Dia.",

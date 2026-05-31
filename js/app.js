@@ -78,7 +78,7 @@ function bindNav() {
 
 function setView(view) {
   state.view = view;
-  document.body.classList.toggle('settings-view', view === 'settings');
+  document.body.classList.toggle('settings-view', ['settings', 'profile'].includes(view));
   navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === view));
   app.focus({ preventScroll: true });
 }
@@ -127,11 +127,11 @@ function pickSuggestion(sectionId, subIndex = 0, label = '') {
 
 function getSuggestionByPrayer(name) {
   const map = {
-    Subuh: ['04_tahmid_sebelum_isya_subuh', 1, 'Tahmid Sebelum Subuh'],
-    Dzuhur: ['02_tahmid_sebelum_zuhur_asar', 0, 'Tahmid Sebelum Zuhur'],
-    Ashar: ['02_tahmid_sebelum_zuhur_asar', 1, 'Tahmid Sebelum Asar'],
-    Maghrib: ['03_tahmid_sebelum_magrib_syi_ir_al_i_tiraf', 0, 'Tahmid Sebelum Magrib'],
-    Isya: ['04_tahmid_sebelum_isya_subuh', 0, 'Tahmid Sebelum Isya'],
+    Subuh: ['04_pujian_sebelum_isya_subuh', 1, 'Pujian Sebelum Subuh'],
+    Dzuhur: ['02_pujian_sebelum_dhuhur_asar', 0, 'Pujian Sebelum Dhuhur'],
+    Ashar: ['02_pujian_sebelum_dhuhur_asar', 1, 'Pujian Sebelum Asar'],
+    Maghrib: ['03_pujian_sebelum_magrib_syi_ir_al_i_tiraf', 0, 'Pujian Sebelum Magrib'],
+    Isya: ['04_pujian_sebelum_isya_subuh', 0, 'Pujian Sebelum Isya'],
   };
   const [sectionId, subIndex, label] = map[name] || map.Dzuhur;
   return pickSuggestion(sectionId, subIndex, label);
@@ -400,7 +400,8 @@ function renderSettings() {
   setView('settings');
   app.innerHTML = `
     <section class="info-list">
-      <div class="info-card card brand-showcase">
+      <div class="info-card card brand-showcase profile-hero">
+        <button class="info-bubble-btn" id="openProfileBtn" aria-label="Buka profil pesantren" title="Profil Pesantren">i</button>
         <img src="assets/logo.png" alt="Logo Pondok Pesantren Sunan Ampel" style="width:104px;height:104px;object-fit:contain;border-radius:50%;background:white;border:1px solid var(--border);padding:6px" />
         <h2 class="arabic-brand-title showcase-title" lang="ar" dir="rtl">${ARABIC_TITLE}</h2>
         <p class="arabic-brand-subtitle showcase-subtitle" lang="ar" dir="rtl">${ARABIC_SUBTITLE}</p>
@@ -442,6 +443,16 @@ function renderSettings() {
         </div>
       </div>
 
+      <div class="info-card card donation-card">
+        <h3>Donasi</h3>
+        <p>No Rek. BRI a.n. Pondok Pesantren Sunan Ampel</p>
+        <div class="donation-row">
+          <strong class="donation-account" id="donationAccount">002301003179307</strong>
+          <button class="secondary-btn" id="copyDonationBtn">Salin</button>
+        </div>
+        <p class="status-line" id="copyDonationStatus"></p>
+      </div>
+
       <div class="info-card card">
         <h3>Informasi Pesantren</h3>
         <p>Tautan resmi: <a href="https://linktr.ee/ppsajombang" target="_blank" rel="noopener">linktr.ee/ppsajombang</a></p>
@@ -459,7 +470,95 @@ function renderSettings() {
     setTextMode(button.dataset.settingsMode);
     renderSettings();
   }));
+  document.querySelector('#openProfileBtn')?.addEventListener('click', renderProfile);
+  document.querySelector('#copyDonationBtn')?.addEventListener('click', copyDonationAccount);
   hydrateLocationControls();
+}
+
+function renderProfile() {
+  setView('profile');
+  app.innerHTML = `
+    <section class="profile-page">
+      <div class="card profile-card">
+        <div class="profile-header">
+          <button class="ghost-btn back-btn" id="backToSettingsBtn">← Kembali</button>
+          <div>
+            <h2>Profil Pesantren</h2>
+            <p>Sejarah dan profil Pondok Pesantren Sunan Ampel Jombang.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Asal-Usul dan Latar Belakang Keluarga Pendiri</h3>
+        <p>KH. Mahfudz Anwar lahir di Paculgowang, sekitar 2 kilometer dari Pondok Pesantren Tebuireng, Jombang, pada 12 April 1912. Beliau merupakan anak ke-6 dari 12 bersaudara, putra pasangan Kiai Anwar Alwi dan Ibu Khadijah.</p>
+        <p>Ayah beliau, Kiai Anwar Alwi, adalah ulama besar pendiri Pondok Pesantren Tarbiyatun Nasi’in Paculgowang dan hidup seperiode dengan Hadratusyaikh KH. M. Hasyim Asy’ari. Keduanya sama-sama pernah berguru kepada KH. Kholil Bangkalan. Lingkungan keluarga alim inilah yang membentuk Mahfudz muda tumbuh dengan kecintaan yang kuat terhadap ilmu agama.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Masa Pendidikan dan Kecerdasan di Tebuireng</h3>
+        <p>Pendidikan dasar KH. Mahfudz ditempuh di pesantren ayahnya sendiri. Setelah itu, beliau melanjutkan menimba ilmu di Pondok Pesantren Tebuireng langsung kepada Hadratusyaikh KH. M. Hasyim Asy’ari selama 8 tahun, mulai dari jenjang Shifir Awal, Tsani, Tsalis, hingga kelas I sampai VI.</p>
+        <p>Kecerdasannya sangat menonjol. Saat masih kelas IV, beliau sudah dipercaya mengajar adik kelas yang justru lebih tua secara usia. Setelah lulus kelas VI, beliau resmi diangkat menjadi guru tetap di Tebuireng dan kelak mendidik banyak tokoh besar seperti KH. Ahmad Shiddiq, KH. Tholhah Hasan, dan Kiai As’ad Syamsul Arifin.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Mendalami Ilmu Falak dan Kisah Pernikahan di Pesantren Seblak</h3>
+        <p>Di sela kegiatan mengajar di Tebuireng, KH. Mahfudz juga memperdalam ilmu falak di Pesantren Seblak kepada KH. Ma’shum Ali, ulama ahli falak sekaligus pencetus kitab Amtsilah Al-Tashrifiyah. Setelah KH. Ma’shum Ali wafat pada 1933, beliau melanjutkan belajar kepada Mas Dain, santri senior sekaligus kepala Pondok Seblak saat itu.</p>
+        <p>Melalui forum musyawarah dan diskusi intensif, beliau tumbuh menjadi pakar falak yang sangat mumpuni. Kepakarannya diuji dalam penentuan awal Ramadan dan Syawal dengan rukyat hilal. Karena ketekunan dan kecerdasannya, keluarga dalem kemudian menikahkan beliau dengan putri KH. Ma’shum Ali, yaitu Hj. Abidah.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Estafet Kepemimpinan Sementara</h3>
+        <p>Setelah wafatnya KH. Ma’shum Ali, kepemimpinan Pesantren Seblak sempat diteruskan oleh Nyai Hj. Khoiriyah Hasyim, putri sulung KH. M. Hasyim Asy’ari, dari 1933 hingga 1938. Saat beliau kemudian pindah ke Makkah bersama Kiai Muhaimin selama 18 tahun, tongkat kepemimpinan pesantren diserahkan kepada KH. Mahfudz Anwar.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Hijrah ke Kota dan Berdirinya PPSA Tahun 1956</h3>
+        <p>Ketika Nyai Hj. Khoiriyah kembali dari Makkah untuk memimpin Pesantren Seblak, KH. Mahfudz Anwar bersama Hj. Abidah memilih mandiri dan pindah ke kawasan perkotaan Jombang, tepatnya di Jalan Jaksa Agung Suprapto No. 14.</p>
+        <p>Lahan tersebut merupakan bekas kompleks perumahan Belanda yang rusak akibat agresi militer Jepang. KH. Mahfudz membelinya dengan harga sekitar 16 rupiah. Pada 1956, beliau sekeluarga resmi menempati lokasi itu sambil memboyong 18 santri putri dari Seblak. Dari tempat sederhana itulah Pondok Pesantren Sunan Ampel tumbuh dan berkembang.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Kiprah Birokrasi, Akademis, dan Perjuangan di Nahdlatul Ulama</h3>
+        <p>KH. Mahfudz Anwar dikenal sebagai ulama multidimensi: ahli falak, fikih, tafsir, hadis, tasawuf, dan bahasa. Beliau pernah menjabat sebagai Hakim Agama Jombang, Wakil Direktur Peradilan Agama Depag Jakarta, Ketua Pengadilan Agama Mojokerto, hingga Hakim Pengadilan Agama Surabaya.</p>
+        <p>Di dunia akademik, beliau menjadi dosen fikih dan tafsir di IAIN Sunan Ampel Surabaya dan dipercaya menjadi Dekan Pertama Fakultas Ushuluddin. Di lingkungan NU, beliau aktif dari tingkat ranting hingga menjadi Ketua Lajnah Falakiyah PBNU, terkenal tegas dan kokoh dalam sikap keilmuannya.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Wasiat, Karya Tulis, dan Wafatnya Sang Kiai</h3>
+        <p>Di masa tua, KH. Mahfudz prihatin karena makin sedikit santri yang berminat mempelajari ilmu falak. Beliau kemudian membuka pengajian falak khusus di kediamannya dan terus aktif menghitung kalender falak bahkan hingga tahun 2003.</p>
+        <p>Beliau wafat pada malam Jumat, 20 Mei 1999. Warisan intelektual beliau antara lain Fadlail al-Syuhur, Risalah Asyura min Ahlis Sunnah Wal Jamaah, serta kontribusi awal pada nadhoman kitab Amtsilah Al-Tashrifiyah.</p>
+      </div>
+
+      <div class="card profile-card">
+        <h3>Kepengasuhan PPSA Masa Kini</h3>
+        <p>Estafet perjuangan PPSA kini dilanjutkan oleh KH. Taufiqurrahman, S.H. bersama Ibu Nyai Hj. Maryam Muhsinah, putri pasangan pendiri KH. Mahfudz Anwar dan Nyai Hj. Abidah. Di bawah kepemimpinan mereka, PPSA berkembang melalui pengelolaan lembaga formal seperti MA Terpadu Sunan Ampel dan SMK Sunan Ampel Jombang.</p>
+        <p>Pada awal 2024, keluarga besar pesantren berduka atas wafatnya Ibu Nyai Hj. Maryam Muhsinah. Meski demikian, semangat dakwah, keteladanan, dan pengembangan pendidikan santri di PPSA tetap berjalan istiqamah hingga hari ini.</p>
+      </div>
+    </section>
+  `;
+
+  document.querySelector('#backToSettingsBtn')?.addEventListener('click', renderSettings);
+}
+
+async function copyDonationAccount() {
+  const accountNumber = '002301003179307';
+  const statusEl = document.querySelector('#copyDonationStatus');
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(accountNumber);
+    } else {
+      const input = document.createElement('input');
+      input.value = accountNumber;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+    if (statusEl) statusEl.textContent = 'Nomor rekening berhasil disalin.';
+  } catch (error) {
+    if (statusEl) statusEl.textContent = 'Nomor rekening belum berhasil disalin. Silakan coba lagi.';
+  }
 }
 
 async function refreshPrayerWidget() {
@@ -543,7 +642,7 @@ function getNextPrayerFromSchedule(schedulePayload) {
   const tomorrowYmd = localYmd(tomorrow);
   const fields = [
     ['subuh', 'Subuh'],
-    ['dzuhur', 'Dzuhur'],
+    ['dzuhur', 'Dhuhur'],
     ['ashar', 'Ashar'],
     ['maghrib', 'Maghrib'],
     ['isya', 'Isya'],
