@@ -174,7 +174,37 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .icon-btn { color: var(--deep-pine); background: rgba(212, 175, 55, .20); min-width: 36px; padding-inline: 12px; }
 .hero .primary-btn { background: var(--gold); color: #1b250d; }
 
-.section-title { margin: 22px 2px 12px; color: var(--deep-pine); font-size: 1.05rem; }
+.section-header {
+  margin: 22px 2px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.section-title { margin: 0; color: var(--deep-pine); font-size: 1.05rem; }
+.version-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+.version-btn {
+  border: 0;
+  border-radius: 999px;
+  min-height: 30px;
+  padding: 6px 12px;
+  font-weight: 700;
+  color: var(--deep-pine);
+  background: transparent;
+}
+.version-btn.active {
+  background: var(--deep-pine);
+  color: var(--ivory);
+}
 .grid { display: grid; gap: 12px; }
 .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .category-strip { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 8px; scrollbar-width: none; }
@@ -612,6 +642,8 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
 }
 .menu-card {
   align-items: flex-start;
+  padding: 11px 12px;
+  border-radius: 20px;
 }
 .menu-copy {
   width: 100%;
@@ -637,6 +669,35 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
 }
 .menu-meta {
   font-size: .76rem !important;
+}
+.menu-card .mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  flex-basis: 32px;
+}
+.menu-child-list {
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  overflow: visible;
+  padding-bottom: 0;
+  scrollbar-width: none;
+}
+.menu-child-list::-webkit-scrollbar { display: none; }
+.menu-child-card {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #f6f6f3;
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.15;
+  white-space: normal;
+  max-width: 100%;
+  text-align: left;
 }
 .app-credit {
   margin: 4px 0 16px;

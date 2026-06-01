@@ -74,7 +74,7 @@ Pastikan seluruh isi folder ini berada di root repository `cakgup/ppsa`.
 ## Revisi v7
 - Header Arab disesuaikan agar subjudul tidak terpotong.
 - Alignment judul Arab daftar doa dibuat konsisten.
-- Judul Wirid Setelah Shalat Fardu diringkas.
+- Judul Wirid Setelah Shalat Fardhu diringkas.
 - Kartu Operasional Offline dihapus.
 - Footer kredit kecil ditambahkan pada halaman Info.
 - Cache service worker: ppsa-cache-v7.

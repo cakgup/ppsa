@@ -1,10 +1,11 @@
-const CACHE_NAME = 'ppsa-cache-v15';
+const CACHE_NAME = 'ppsa-cache-v16';
 const APP_ASSETS = [
   './',
   './index.html',
   './css/styles.css',
   './js/app.js',
   './data/doa.json',
+  './data/doa_v2.json',
   './assets/logo.png',
   './assets/icon-192.png',
   './assets/icon-512.png',

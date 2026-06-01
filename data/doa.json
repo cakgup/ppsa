@@ -356,7 +356,7 @@
     },
     {
       "id": "05_wirid_setelah_shalat_fardu_asmaul_husna",
-      "title": "WIRID SETELAH SHALAT FARDU & ASMAUL HUSNA",
+      "title": "WIRID SETELAH SHALAT FARDHU & ASMAUL HUSNA",
       "order": 5,
       "subsections": [
         {
@@ -722,8 +722,8 @@
       ],
       "app_category": "Wirid Setelah Shalat",
       "display_title_arabic": "أَوْرَادُ بَعْدَ الصَّلَاةِ الْمَفْرُوضَةِ",
-      "display_title": "Wirid Setelah Shalat Fardu",
-      "display_subtitle": "Wirid Setelah Shalat Fardu"
+      "display_title": "Wirid Setelah Shalat Fardhu",
+      "display_subtitle": "Wirid Setelah Shalat Fardhu"
     },
     {
       "id": "06_syi_ir_burdah_setelah_magrib_subuh",
@@ -1046,7 +1046,7 @@
           ]
         }
       ],
-      "app_category": "Doa Shalat Sunah",
+      "app_category": "Doa Shalat Sunnah",
       "display_title_arabic": "دُعَاءُ صَلَاةِ التَّهَجُّدِ",
       "display_title": "Doa Shalat Tahajud",
       "display_subtitle": "Doa Shalat Tahajud"
@@ -1098,7 +1098,7 @@
           ]
         }
       ],
-      "app_category": "Doa Shalat Sunah",
+      "app_category": "Doa Shalat Sunnah",
       "display_title_arabic": "دُعَاءُ صَلَاةِ الضُّحَى",
       "display_title": "Doa Shalat Duha",
       "display_subtitle": "Doa Shalat Duha"

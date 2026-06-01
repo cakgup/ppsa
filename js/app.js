@@ -10,6 +10,7 @@ const ARABIC_SUBTITLE = 'لِلْمَعْهَدِ الْإِسْلَامِيِّ
 
 const state = {
   data: null,
+  doaVersion: localStorage.getItem('ppsa-doa-version') || 'v1',
   view: 'home',
   currentSectionId: null,
   currentSubsectionId: null,
@@ -24,6 +25,35 @@ const state = {
   currentSuggestion: null,
   deferredPrompt: null,
 };
+
+function getDoaDataPath() {
+  return state.doaVersion === 'v2' ? './data/doa_v2.json' : './data/doa.json';
+}
+
+function setDoaVersion(version) {
+  state.doaVersion = version === 'v2' ? 'v2' : 'v1';
+  localStorage.setItem('ppsa-doa-version', state.doaVersion);
+}
+
+async function loadDoaData() {
+  const response = await fetch(getDoaDataPath(), { cache: 'no-store' });
+  state.data = await response.json();
+}
+
+function syncCurrentSelection() {
+  const firstReadable = state.data.sections.find(section => !/^01_sampul_depan/.test(section?.id || ''));
+  const sectionExists = state.data.sections.some(section => section.id === state.currentSectionId);
+  if (!sectionExists) {
+    state.currentSectionId = firstReadable?.id || state.data.sections[0]?.id;
+    state.currentSubsectionId = firstReadable?.subsections?.[0]?.id || null;
+    return;
+  }
+  const currentSection = state.data.sections.find(section => section.id === state.currentSectionId);
+  const subsectionExists = currentSection?.subsections?.some(sub => sub.id === state.currentSubsectionId);
+  if (!subsectionExists) {
+    state.currentSubsectionId = currentSection?.subsections?.[0]?.id || null;
+  }
+}
 
 window.addEventListener('load', () => {
   setTimeout(() => document.querySelector('#splash')?.classList.add('hide'), 2000);
@@ -53,14 +83,11 @@ async function init() {
   setArabicFontSize(state.fontSize);
   bindNav();
   try {
-    const response = await fetch('./data/doa.json', { cache: 'no-store' });
-    state.data = await response.json();
-    const firstReadable = state.data.sections.find(section => section.id !== '01_sampul_depan');
-    state.currentSectionId = firstReadable?.id || state.data.sections[0]?.id;
-    state.currentSubsectionId = firstReadable?.subsections?.[0]?.id || null;
+    await loadDoaData();
+    syncCurrentSelection();
     renderHome();
   } catch (error) {
-    app.innerHTML = `<div class="empty-state"><h2>Data doa belum berhasil dimuat</h2><p>Pastikan berkas <strong>data/doa.json</strong> tersedia di repository dan akses aplikasi melalui HTTP/HTTPS, bukan langsung dari file://.</p></div>`;
+    app.innerHTML = `<div class="empty-state"><h2>Data doa belum berhasil dimuat</h2><p>Pastikan berkas <strong>data/doa.json</strong> dan <strong>data/doa_v2.json</strong> tersedia di repository dan akses aplikasi melalui HTTP/HTTPS, bukan langsung dari file://.</p></div>`;
   }
 }
 
@@ -95,6 +122,9 @@ function setTextMode(mode) {
 }
 
 function sections() { return state.data?.sections || []; }
+function isCoverSection(section) {
+  return /^01_sampul_depan/.test(section?.id || '');
+}
 function findSection(id) { return sections().find(section => section.id === id) || sections()[0]; }
 function findSubsection(section, id) { return section?.subsections?.find(sub => sub.id === id) || section?.subsections?.[0]; }
 
@@ -116,7 +146,7 @@ function getSuggestion(now = new Date()) {
   if (hour >= 16.7 && hour < 18.7) return getSuggestionByPrayer('Maghrib');
   if (hour >= 18.7 && hour < 21.5) return getSuggestionByPrayer('Isya');
   if (hour >= 21.5 || hour < 3) return pickSuggestion('08_doa_shalat_tahajud', 0, 'Doa Shalat Tahajud');
-  return pickSuggestion('05_wirid_setelah_shalat_fardu_asmaul_husna', 0, 'Wirid Setelah Shalat Fardu');
+  return pickSuggestion('05_wirid_setelah_shalat_fardu_asmaul_husna', 0, 'Wirid Setelah Shalat Fardhu');
 }
 
 function pickSuggestion(sectionId, subIndex = 0, label = '') {
@@ -148,7 +178,7 @@ function renderHome() {
   setView('home');
   const now = new Date();
   state.currentSuggestion = getSuggestion(now);
-  const filteredSections = sections().filter(s => s.id !== '01_sampul_depan');
+  const filteredSections = sections().filter(s => !isCoverSection(s));
 
   app.innerHTML = `
     <section class="hero card">
@@ -168,7 +198,13 @@ function renderHome() {
       </div>
     </section>
 
-    <h2 class="section-title">Daftar Doa & Wirid</h2>
+    <div class="section-header">
+      <h2 class="section-title">Daftar Doa & Wirid</h2>
+      <div class="version-switch" role="group" aria-label="Pilih versi data doa">
+        <button type="button" class="version-btn ${state.doaVersion === 'v1' ? 'active' : ''}" data-doa-version="v1">Versi lama</button>
+        <button type="button" class="version-btn ${state.doaVersion === 'v2' ? 'active' : ''}" data-doa-version="v2">Versi baru</button>
+      </div>
+    </div>
     <div class="grid">
       ${filteredSections.map((section, index) => sectionCard(section, index)).join('')}
     </div>
@@ -179,15 +215,41 @@ function renderHome() {
     openReader(suggestion.section.id, suggestion.subsection?.id);
   });
   document.querySelector('#prayerSettingsBtn')?.addEventListener('click', renderSettings);
-  document.querySelectorAll('[data-section]').forEach(btn => btn.addEventListener('click', () => openReader(btn.dataset.section)));
+  document.querySelectorAll('[data-section]').forEach(btn => btn.addEventListener('click', (event) => {
+    const childCard = event.target.closest('.menu-child-card[data-subsection-id]');
+    if (childCard) {
+      openReader(btn.dataset.section, childCard.dataset.subsectionId);
+      return;
+    }
+    openReader(btn.dataset.section);
+  }));
+  document.querySelectorAll('[data-doa-version]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const nextVersion = button.dataset.doaVersion;
+      if (!nextVersion || nextVersion === state.doaVersion) return;
+      setDoaVersion(nextVersion);
+      try {
+        await loadDoaData();
+        syncCurrentSelection();
+        renderHome();
+      } catch (error) {
+        app.innerHTML = `<div class="empty-state"><h2>Gagal memuat versi data</h2><p>Periksa kembali berkas <strong>${escapeHtml(getDoaDataPath().replace('./', ''))}</strong>.</p></div>`;
+      }
+    });
+  });
   refreshPrayerWidget();
 }
 
 function sectionCard(section, index) {
   const count = section.subsections?.reduce((sum, sub) => sum + (sub.items?.length || 0), 0) || 0;
-  const arabicTitle = section.display_title_arabic || '';
+  const arabicTitle = section.display_title_arabic || getSectionArabicTitle(section);
   const title = section.display_title || titleCase(section.title);
   const meta = `${count} bait/baris`;
+  const childCards = (section.subsections || [])
+    .filter(sub => (sub?.title || '').trim() && !/^umum$/i.test((sub?.title || '').trim()))
+    .map(sub => `<span class="menu-child-card" data-subsection-id="${escapeHtml(sub.id)}">${escapeHtml(formatSubsectionTitlePlain(sub.title))}</span>`)
+    .join('');
+  const childCardsHtml = childCards ? `<div class="menu-child-list">${childCards}</div>` : '';
   return `
     <button class="menu-card" data-section="${section.id}">
       <span class="mark">${index + 1}</span>
@@ -195,17 +257,34 @@ function sectionCard(section, index) {
         ${arabicTitle ? `<div class="menu-arabic" lang="ar" dir="rtl">${escapeHtml(arabicTitle)}</div>` : ''}
         <h3>${escapeHtml(title)}</h3>
         <p class="menu-meta">${escapeHtml(meta)}</p>
+        ${childCardsHtml}
       </span>
     </button>
   `;
 }
 
+function getSectionArabicTitle(section) {
+  const titleFromSub = (section?.subsections || [])
+    .map(sub => String(sub?.title || '').trim())
+    .find(Boolean) || '';
+  const match = titleFromSub.match(/^(.+?)\s*\((.+)\)\s*$/);
+  if (match) return match[1].trim();
+  return '';
+}
+
+function formatSubsectionTitlePlain(title = '') {
+  const cleanTitle = String(title || 'Umum').trim();
+  const match = cleanTitle.match(/^(.+?)\s*\((.+)\)\s*$/);
+  if (!match) return cleanTitle;
+  return match[2].trim();
+}
+
 function renderReader() {
   setView('read');
-  const section = findSection(state.currentSectionId) || sections().find(s => s.id !== '01_sampul_depan');
+  const section = findSection(state.currentSectionId) || sections().find(s => !isCoverSection(s));
   state.currentSectionId = section?.id;
   const sectionOptions = sections()
-    .filter(s => s.id !== '01_sampul_depan')
+    .filter(s => !isCoverSection(s))
     .map(s => `<option value="${s.id}" ${s.id === section?.id ? 'selected' : ''}>${escapeHtml(s.display_title || titleCase(s.title))}</option>`).join('');
 
   app.innerHTML = `
@@ -261,7 +340,8 @@ function renderPrayerItems(section) {
   container.innerHTML = subsections.map(sub => {
     const title = showSubsectionTitle ? formatSubsectionTitle(sub.title || 'Umum') : '';
     const cards = (sub.items || []).map(item => prayerCard(item)).join('');
-    return `${title}${cards}`;
+    const anchor = `<div class="subsection-anchor" id="subsection-${escapeHtml(sub.id)}"></div>`;
+    return `${anchor}${title}${cards}`;
   }).join('');
 
   const allItems = subsections.flatMap(sub => sub.items || []);
@@ -272,6 +352,11 @@ function renderPrayerItems(section) {
       startCounterFromItem(item, target);
     });
   });
+
+  if (state.currentSubsectionId && typeof CSS !== 'undefined' && CSS.escape) {
+    const target = container.querySelector(`#subsection-${CSS.escape(state.currentSubsectionId)}`);
+    if (target) target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
 }
 
 
