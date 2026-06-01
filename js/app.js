@@ -241,10 +241,8 @@ function renderHome() {
 }
 
 function sectionCard(section, index) {
-  const count = section.subsections?.reduce((sum, sub) => sum + (sub.items?.length || 0), 0) || 0;
   const arabicTitle = section.display_title_arabic || getSectionArabicTitle(section);
   const title = section.display_title || titleCase(section.title);
-  const meta = `${count} bait/baris`;
   const childCards = (section.subsections || [])
     .filter(sub => (sub?.title || '').trim() && !/^umum$/i.test((sub?.title || '').trim()))
     .map(sub => `<span class="menu-child-card" data-subsection-id="${escapeHtml(sub.id)}">${escapeHtml(formatSubsectionTitlePlain(sub.title))}</span>`)
@@ -256,7 +254,6 @@ function sectionCard(section, index) {
       <span class="menu-copy">
         ${arabicTitle ? `<div class="menu-arabic" lang="ar" dir="rtl">${escapeHtml(arabicTitle)}</div>` : ''}
         <h3>${escapeHtml(title)}</h3>
-        <p class="menu-meta">${escapeHtml(meta)}</p>
         ${childCardsHtml}
       </span>
     </button>
@@ -336,6 +333,29 @@ function renderPrayerItems(section) {
     container.innerHTML = `<div class="empty-state card"><h2>Belum ada konten</h2><p>Data bacaan belum tersedia.</p></div>`;
     return;
   }
+  const isYasinSection = section?.id === '02_surah_yasin_tahlil_lengkap';
+  const isYasinArabOnly =
+    isYasinSection &&
+    state.textMode === 'arabic_only' &&
+    subsections.some(sub => sub?.id === '02_surah_yasin_tahlil_lengkap__01_surah_yasin');
+
+  if (isYasinArabOnly) {
+    const yasinSub = subsections.find(sub => sub?.id === '02_surah_yasin_tahlil_lengkap__01_surah_yasin');
+    const title = formatSubsectionTitle(yasinSub?.title || 'Surah Yasin');
+    const mergedArabic = (yasinSub?.items || [])
+      .map(item => normalizeArabicPunctuation(item.arabic_display || item.arabic || ''))
+      .filter(Boolean)
+      .join(' ');
+    container.innerHTML = `
+      <div class="subsection-anchor" id="subsection-${escapeHtml(yasinSub?.id || '')}"></div>
+      ${title}
+      <article class="prayer-card card arabic-only yasin-merged-card">
+        <p class="arabic yasin-merged-text">${escapeHtml(mergedArabic)}</p>
+      </article>
+    `;
+    return;
+  }
+
   const showSubsectionTitle = subsections.length > 1 || !/^umum$/i.test(subsections[0]?.title || '');
   container.innerHTML = subsections.map(sub => {
     const title = showSubsectionTitle ? formatSubsectionTitle(sub.title || 'Umum') : '';

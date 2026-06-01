@@ -468,6 +468,12 @@ a { color: var(--deep-pine); font-weight: 800; }
   line-height: 1.6;
 }
 .prayer-card.arabic-only .translation { display: none; }
+.yasin-merged-card { padding-top: 18px; }
+.yasin-merged-text {
+  margin: 0;
+  text-align: right;
+  line-height: 2.3;
+}
 .location-grid {
   display: grid;
   grid-template-columns: 1fr;

@@ -243,7 +243,7 @@
       },
       {
         "section": "WIRID-WIRID",
-        "subsection": "بَعْدَ الْمَغْرِبِ (راتب الحداد) (Setelah Shalat Magrib / Ratibul Haddad)",
+        "subsection": "(Setelah Shalat Magrib / Ratibul Haddad)",
         "items": 20,
         "content_status": "available_from_doa_v2"
       },
@@ -5472,7 +5472,7 @@
         },
         {
           "id": "05_wirid_wirid__04_setelah_magrib_ratibul_haddad",
-          "title": "بَعْدَ الْمَغْرِبِ (رَاتِبُ الْحَدَّادِ) (Setelah Shalat Magrib / Ratibul Haddad)",
+          "title": "(Setelah Shalat Magrib / Ratibul Haddad)",
           "order": 4,
           "number": 4,
           "items": [
