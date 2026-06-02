@@ -1,39 +1,104 @@
-# PPSA - Majmu'ah ad-Du'a Sunan Ampel
+﻿# 📖 PPSA — Majmu'ah ad-Du'a Sunan Ampel
 
-Aplikasi static PWA untuk digitalisasi **Majmu'ah ad-Du'a Pondok Pesantren Sunan Ampel**.
+<p align="center">
+  <img src="assets/logo.png" alt="Logo PPSA" width="140">
+</p>
 
-## Fitur
+<p align="center">
+  <strong>Aplikasi doa & wirid digital untuk keluarga besar Pondok Pesantren Sunan Ampel</strong><br>
+  Ringan, bisa dibuka dari HP, mendukung mode offline, dan dilengkapi jadwal shalat harian.
+</p>
 
-- Splash screen dengan judul Arab.
-- Beranda dengan jadwal shalat berikutnya.
-- Jadwal shalat memakai **EQuran.id API** dengan sumber data **Bimas Islam Kementerian Agama RI**.
-- Default wilayah: **Kab. Jombang, Jawa Timur**.
-- Pengaturan wilayah manual berdasarkan provinsi dan kabupaten/kota.
-- Tombol GPS untuk membantu mencocokkan wilayah pengguna ke daftar kabupaten/kota.
-- Mode baca: **Arab saja** atau **Arab + Arti**.
-- Pengaturan ukuran font Arab 16–32 px.
-- Tasbih digital dengan target dan haptic feedback.
-- Offline-first untuk teks doa, wirid, dan tasbih.
-- Cache jadwal shalat bulan berjalan di `localStorage`.
+<p align="center">
+  <a href="https://cakgup.github.io/ppsa/">
+    <img src="https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github" alt="GitHub Pages">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-GPL--3.0-blue.svg" alt="License GPL-3.0">
+  </a>
+  <img src="https://img.shields.io/badge/PWA-Offline--First-2E7D32" alt="PWA Offline First">
+  <img src="https://img.shields.io/badge/Mobile-Responsive-1E88E5" alt="Mobile Responsive">
+</p>
 
-## Struktur File
+---
+
+## ✦ Bismillahirrahmanirrahim
+
+Repository ini adalah ikhtiar digital untuk memudahkan keluarga, santri, dan jamaah dalam menjaga rutinitas doa, wirid, serta kedisiplinan ibadah harian.  
+Semoga aplikasi ini menjadi wasilah kebaikan: mudah dibuka, mudah diamalkan, dan mudah diwariskan.
+
+> _“Khairunnas anfa'uhum linnas.”_  
+> Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.
+
+---
+
+## 📌 Tentang Aplikasi
+
+**PPSA — Majmu'ah ad-Du'a Sunan Ampel** adalah aplikasi web statis berbasis PWA yang berisi kumpulan doa dan wirid dengan pengalaman baca yang ramah mobile.
+
+Aplikasi ini cocok untuk:
+
+- penggunaan pribadi harian setelah shalat;
+- pendamping amalan di rumah, pesantren, atau majelis;
+- akses cepat doa dalam kondisi sinyal minim;
+- dokumentasi digital naskah doa agar lebih mudah dirawat.
+
+---
+
+## ✨ Fitur Utama
+
+| Fitur | Keterangan |
+|---|---|
+| 🕌 Jadwal Shalat Harian | Menampilkan waktu shalat berdasarkan wilayah pilihan pengguna |
+| 📍 Pilih Lokasi Manual + GPS | Pilih provinsi/kota atau bantu deteksi lokasi via GPS |
+| 📚 Mode Baca Fleksibel | Tersedia mode Arab saja atau Arab + Arti |
+| 🔠 Pengaturan Font Arab | Ukuran font Arab bisa diatur agar nyaman dibaca |
+| 📿 Tasbih Digital | Counter tasbih dengan target dan feedback getar (device support) |
+| 📶 Offline-First | Konten doa utama tetap dapat dibaca saat offline |
+| 📦 Cache Cerdas | Jadwal shalat bulan berjalan disimpan di localStorage |
+| 📱 Siap Dipasang | Mendukung install ke homescreen (PWA) |
+
+---
+
+## 🗂️ Struktur Repository
 
 ```text
-.
+ppsa/
 ├── index.html
-├── css/styles.css
-├── js/app.js
-├── data/doa.json
-├── assets/logo.png
+├── css/
+│   └── styles.css
+├── js/
+│   └── app.js
+├── data/
+│   └── doa.json
+├── assets/
+│   ├── logo.png
+│   └── icon-192.png
 ├── manifest.webmanifest
-└── sw.js
+├── sw.js
+├── LICENSE
+└── README.md
 ```
 
-## Cara Menjalankan Lokal
+Keterangan singkat:
 
-Jangan buka langsung `index.html` melalui `file://`, karena browser dapat memblokir `fetch('./data/doa.json')` dan API.
+| File/Folder | Fungsi |
+|---|---|
+| `index.html` | Entry point aplikasi |
+| `css/styles.css` | Styling utama aplikasi |
+| `js/app.js` | Logika view, jadwal shalat, tasbih, dan pengaturan |
+| `data/doa.json` | Sumber data doa/wirid |
+| `assets/` | Logo dan ikon aplikasi |
+| `manifest.webmanifest` | Konfigurasi PWA |
+| `sw.js` | Service worker untuk mode offline |
 
-Jalankan server lokal:
+---
+
+## 🚀 Menjalankan Secara Lokal
+
+Jangan buka `index.html` langsung via `file://` karena `fetch` ke file data bisa dibatasi browser.
+
+### Opsi 1 — Python
 
 ```bash
 python -m http.server 8000
@@ -45,36 +110,133 @@ Lalu buka:
 http://localhost:8000
 ```
 
-## Deploy
+### Opsi 2 — Node.js
 
-Bisa langsung diunggah ke:
+```bash
+npx -y serve .
+```
+
+Lalu buka:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## 🌐 Deploy
+
+Aplikasi dapat dipublikasikan ke:
 
 - GitHub Pages
 - Vercel
-- Cloudflare Pages / pages.dev
+- Cloudflare Pages
 
-Pastikan seluruh isi folder ini berada di root repository `cakgup/ppsa`.
+Untuk GitHub Pages:
 
-## Catatan Jadwal Shalat
+1. Push semua file ke branch `main`.
+2. Buka `Settings` repository.
+3. Masuk ke menu `Pages`.
+4. Pilih source `Deploy from a branch`.
+5. Pilih branch `main` dan folder `/root`.
+6. Simpan, lalu tunggu URL aktif.
 
-- Teks doa tetap dapat dibaca offline.
-- Jadwal shalat membutuhkan internet saat pertama kali mengambil data wilayah/bulan berjalan.
-- Setelah jadwal berhasil diambil, data bulan berjalan tersimpan di browser pengguna.
-- Fitur GPS hanya membantu mendeteksi wilayah dan tetap membutuhkan izin lokasi dari pengguna.
+Contoh URL:
 
+```text
+https://cakgup.github.io/ppsa/
+```
 
-## Catatan Normalisasi Teks Arab v5
+---
 
-- `data/doa.json` sekarang memiliki field tambahan `arabic_display`.
-- Field `arabic` tetap dipertahankan sebagai teks canonical PPSA.
-- Aplikasi menampilkan `arabic_display` agar tampilan Arab lebih halus, dengan separator koma Arab `،` seperti gaya file runtime TTS.
-- Jika `arabic_display` tidak tersedia, aplikasi otomatis fallback ke `arabic`.
+## 🛠️ Kustomisasi Konten
 
+### 1. Memperbarui data doa
 
-## Revisi v7
-- Header Arab disesuaikan agar subjudul tidak terpotong.
-- Alignment judul Arab daftar doa dibuat konsisten.
-- Judul Wirid Setelah Shalat Fardhu diringkas.
-- Kartu Operasional Offline dihapus.
-- Footer kredit kecil ditambahkan pada halaman Info.
-- Cache service worker: ppsa-cache-v7.
+Edit file berikut:
+
+```text
+data/doa.json
+```
+
+Disarankan tetap menjaga format field agar kompatibel dengan renderer di `js/app.js`.
+
+### 2. Menyesuaikan branding
+
+- Ubah logo di `assets/logo.png`
+- Ubah ikon aplikasi di `assets/icon-192.png`
+- Sesuaikan judul/meta di `index.html`
+
+### 3. Menyesuaikan tema warna
+
+Ubah variabel/aturan warna di:
+
+```text
+css/styles.css
+```
+
+---
+
+## 🧪 Checklist Sebelum Publish
+
+- [ ] Data `data/doa.json` valid (tidak ada JSON error)
+- [ ] Navigasi Beranda, Baca, Tasbih, Info berjalan normal
+- [ ] Jadwal shalat muncul untuk lokasi default dan lokasi manual
+- [ ] Service worker aktif dan konten inti bisa dibuka offline
+- [ ] Tampilan mobile tetap rapi di layar kecil
+- [ ] Tidak ada error penting di browser console
+
+---
+
+## 🧩 Troubleshooting
+
+### Jadwal shalat tidak muncul
+
+- cek koneksi internet;
+- pastikan endpoint API bisa diakses;
+- hapus cache browser/localStorage lalu reload.
+
+### Data doa tidak tampil
+
+- validasi format JSON di `data/doa.json`;
+- cek path file tidak berubah;
+- refresh keras browser (`Ctrl + F5`).
+
+### Tombol install tidak muncul
+
+- pastikan dibuka via `http://` atau `https://` (bukan `file://`);
+- pastikan browser mendukung install PWA;
+- interaksi user kadang dibutuhkan sebelum prompt install muncul.
+
+---
+
+## 🔐 Catatan Penggunaan
+
+- Gunakan aplikasi ini untuk memudahkan ibadah, bukan menggantikan adab belajar dari guru.
+- Jika memodifikasi konten doa, lakukan tabayyun sumber terlebih dahulu.
+- Hindari memasukkan data pribadi sensitif ke dalam repository publik.
+
+---
+
+## 🛠️ Teknologi
+
+| Teknologi | Fungsi |
+|---|---|
+| HTML | Struktur halaman |
+| CSS | Tampilan visual |
+| JavaScript | Interaksi aplikasi |
+| Service Worker | Dukungan offline |
+| Web App Manifest | Instalasi PWA |
+
+---
+
+## 📜 Lisensi
+
+Repository ini menggunakan lisensi **GNU General Public License v3.0 (GPL-3.0)**.  
+Lihat detail pada file [LICENSE](LICENSE).
+
+---
+
+<p align="center">
+  <strong>Dibuat dengan niat ibadah, dirawat dengan amanah, dan dibagikan untuk kemaslahatan.</strong>
+</p>

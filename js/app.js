@@ -358,7 +358,7 @@ function renderPrayerItems(section) {
 
   const showSubsectionTitle = subsections.length > 1 || !/^umum$/i.test(subsections[0]?.title || '');
   container.innerHTML = subsections.map(sub => {
-    const title = showSubsectionTitle ? formatSubsectionTitle(sub.title || 'Umum') : '';
+    const title = showSubsectionTitle ? formatSubsectionTitle(getReaderSubsectionTitle(sub)) : '';
     const cards = (sub.items || []).map(item => prayerCard(item)).join('');
     const anchor = `<div class="subsection-anchor" id="subsection-${escapeHtml(sub.id)}"></div>`;
     return `${anchor}${title}${cards}`;
@@ -377,6 +377,15 @@ function renderPrayerItems(section) {
     const target = container.querySelector(`#subsection-${CSS.escape(state.currentSubsectionId)}`);
     if (target) target.scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
+}
+
+function getReaderSubsectionTitle(subsection = {}) {
+  const title = String(subsection.title || '').trim();
+  const titleOriginal = String(subsection.title_original || '').trim();
+  const hasArabic = /[\u0600-\u06FF]/.test(title);
+  const originalHasArabic = /[\u0600-\u06FF]/.test(titleOriginal);
+  if (hasArabic || !originalHasArabic) return title || 'Umum';
+  return titleOriginal;
 }
 
 
