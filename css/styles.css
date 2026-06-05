@@ -886,14 +886,51 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
   margin-top: 12px;
 }
 .quran-ayah-card {
-  scroll-margin-top: 96px;
+  scroll-margin-top: 210px;
 }
 .quran-ayah-text {
   font-size: calc(var(--font-arabic-size) + 4px);
 }
+.quran-audio-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
 .quran-audio {
   width: 100%;
-  margin-top: 12px;
+  height: 44px;
+  min-width: 0;
+  flex: 1 1 auto;
+  border-radius: 999px;
+  background: #f0f1f0;
+  color: var(--deep-pine);
+}
+.quran-audio::-webkit-media-controls-panel {
+  min-height: 44px;
+  background: #f0f1f0;
+}
+.quran-audio::-webkit-media-controls-enclosure {
+  min-height: 44px;
+}
+.quran-repeat-field {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--deep-pine);
+  font-size: .72rem;
+  font-weight: 800;
+}
+.quran-repeat-field select {
+  height: 44px;
+  min-width: 82px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0 12px;
+  color: var(--deep-pine);
+  background: #fff;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(26,67,20,.06);
 }
 .quran-footnotes {
   margin: 10px 0 0;
@@ -904,6 +941,39 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
   font-size: .82rem;
   line-height: 1.55;
   white-space: pre-line;
+}
+.quran-footnote-ref {
+  position: relative;
+  top: -0.35em;
+  font-size: .68em;
+  line-height: 0;
+  font-weight: 800;
+}
+.quran-top-btn {
+  position: fixed;
+  right: max(18px, calc((100vw - 720px) / 2 + 18px));
+  bottom: calc(72px + env(safe-area-inset-bottom));
+  z-index: 35;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ivory);
+  background: var(--deep-pine);
+  box-shadow: 0 12px 26px rgba(26,67,20,.24);
+  font-size: 1.45rem;
+  font-weight: 900;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.quran-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 @media (max-width: 390px) {
   .bottom-nav {
@@ -924,5 +994,12 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
     grid-column: 2;
     max-width: 100%;
     justify-self: end;
+  }
+  .quran-audio-row {
+    align-items: center;
+    gap: 8px;
+  }
+  .quran-repeat-field select {
+    min-width: 72px;
   }
 }

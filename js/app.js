@@ -4,6 +4,7 @@ const installBtn = document.querySelector('#installBtn');
 
 const EQURAN_BASE = 'https://equran.id/api/v2/shalat';
 const QURAN_BASE = 'https://api.alquran.cloud/v1';
+const QURAN_DATA_VERSION = 'v2';
 const DEFAULT_PROVINCE = 'Jawa Timur';
 const DEFAULT_CITY = 'Kab. Jombang';
 const ARABIC_TITLE = 'مَجْمُوعَةُ الدُّعَاءِ';
@@ -26,7 +27,6 @@ const state = {
   quranSurahs: null,
   quranCurrentSurah: Number(localStorage.getItem('ppsa-quran-current-surah') || 1),
   quranKeyword: '',
-  quranRepeatCount: Number(localStorage.getItem('ppsa-quran-repeat-count') || 1),
   currentSuggestion: null,
   deferredPrompt: null,
 };
@@ -489,9 +489,13 @@ async function renderQuran() {
   }
 }
 
+function getQuranRepeatOptions() {
+  return [1, 5, 10, 15, 20, 25];
+}
+
 async function loadQuranSurahs() {
   if (Array.isArray(state.quranSurahs) && state.quranSurahs.length) return state.quranSurahs;
-  const cached = readJson('ppsa-quran-surahs');
+  const cached = readJson(`ppsa-quran-surahs-${QURAN_DATA_VERSION}`);
   if (cached?.length) state.quranSurahs = cached;
 
   try {
@@ -500,7 +504,7 @@ async function loadQuranSurahs() {
     const json = await response.json();
     if (!Array.isArray(json)) throw new Error('Format daftar surah tidak sesuai.');
     state.quranSurahs = json;
-    localStorage.setItem('ppsa-quran-surahs', JSON.stringify(json));
+    localStorage.setItem(`ppsa-quran-surahs-${QURAN_DATA_VERSION}`, JSON.stringify(json));
   } catch (error) {
     if (!state.quranSurahs?.length) throw error;
   }
@@ -570,10 +574,15 @@ async function openQuranSurah(number) {
       <div class="reader-head quran-detail-head">
         <button class="ghost-btn back-btn" id="backToQuranListBtn">← Daftar Surah</button>
         <div class="field">
-          <label for="quranRepeatSelect">Ulang tiap ayat</label>
-          <select id="quranRepeatSelect">
-            ${[1, 2, 3, 5, 10].map(count => `<option value="${count}" ${state.quranRepeatCount === count ? 'selected' : ''}>${count}x</option>`).join('')}
-          </select>
+          <label for="quranAyahSelect">Pilih ayat</label>
+          <select id="quranAyahSelect"><option>Memuat ayat...</option></select>
+        </div>
+        <div>
+          <div class="reader-title">Mode tampilan bacaan</div>
+          <div class="segmented" role="group" aria-label="Mode tampilan bacaan Quran">
+            <button type="button" data-quran-mode="arabic_only" class="${state.textMode === 'arabic_only' ? 'active' : ''}">Arab saja</button>
+            <button type="button" data-quran-mode="arabic_translation" class="${state.textMode === 'arabic_translation' ? 'active' : ''}">Arab + Arti</button>
+          </div>
         </div>
         <div class="field font-row">
           <label for="quranFontRange">Ukuran font Arab: <span id="quranFontValue">${state.fontSize}px</span></label>
@@ -583,23 +592,30 @@ async function openQuranSurah(number) {
       <section id="quranDetailContent">
         <div class="empty-state card"><h2>Memuat surah</h2><p>Mohon tunggu sebentar.</p></div>
       </section>
+      <button class="quran-top-btn" id="quranTopBtn" type="button" aria-label="Kembali ke atas">↑</button>
     </section>
   `;
 
   document.querySelector('#backToQuranListBtn')?.addEventListener('click', renderQuran);
+  document.querySelector('#quranTopBtn')?.addEventListener('click', () => {
+    document.querySelector('.quran-detail-head')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+  bindQuranTopButton();
   document.querySelector('#quranFontRange')?.addEventListener('input', (event) => {
     setArabicFontSize(event.target.value);
     const label = document.querySelector('#quranFontValue');
     if (label) label.textContent = `${state.fontSize}px`;
   });
-  document.querySelector('#quranRepeatSelect')?.addEventListener('change', (event) => {
-    state.quranRepeatCount = Number(event.target.value) || 1;
-    localStorage.setItem('ppsa-quran-repeat-count', state.quranRepeatCount);
+  document.querySelectorAll('[data-quran-mode]').forEach(button => {
+    button.addEventListener('click', () => {
+      setTextMode(button.dataset.quranMode);
+      openQuranSurah(state.quranCurrentSurah);
+    });
   });
-
   try {
     const detail = await loadQuranSurahDetail(state.quranCurrentSurah);
     renderQuranSurahDetail(detail);
+    hydrateQuranAyahSelect(detail);
   } catch (error) {
     const content = document.querySelector('#quranDetailContent');
     if (content) {
@@ -608,8 +624,32 @@ async function openQuranSurah(number) {
   }
 }
 
+function hydrateQuranAyahSelect(surah) {
+  const select = document.querySelector('#quranAyahSelect');
+  if (!select) return;
+  select.innerHTML = (surah.ayahs || [])
+    .map(ayah => `<option value="${ayah.numberInSurah}">Ayat ${ayah.numberInSurah}</option>`)
+    .join('');
+  select.addEventListener('change', () => {
+    const target = typeof CSS !== 'undefined' && CSS.escape
+      ? document.querySelector(`#ayah-${CSS.escape(select.value)}`)
+      : document.getElementById(`ayah-${select.value}`);
+    if (target) target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+}
+
+function bindQuranTopButton() {
+  const button = document.querySelector('#quranTopBtn');
+  if (!button) return;
+  const toggle = () => button.classList.toggle('show', window.scrollY > 650);
+  window.removeEventListener('scroll', window.__ppsaQuranTopToggle);
+  window.__ppsaQuranTopToggle = toggle;
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+}
+
 async function loadQuranSurahDetail(number) {
-  const cacheKey = `ppsa-quran-surah-${number}`;
+  const cacheKey = `ppsa-quran-surah-${QURAN_DATA_VERSION}-${number}`;
   const cached = readJson(cacheKey);
   try {
     const [kemenagRes, audioRes] = await Promise.all([
@@ -685,6 +725,7 @@ function renderQuranSurahDetail(surah) {
 }
 
 function quranAyahCard(ayah) {
+  const showTranslation = state.textMode === 'arabic_translation';
   return `
     <article class="quran-ayah-card prayer-card card" id="ayah-${ayah.numberInSurah}">
       <div class="prayer-meta">
@@ -692,11 +733,24 @@ function quranAyahCard(ayah) {
         <span class="badge">Juz ${ayah.juz}</span>
       </div>
       <p class="arabic quran-ayah-text" lang="ar" dir="rtl">${escapeHtml(ayah.text)}</p>
-      <p class="translation">${escapeHtml(ayah.translation)}</p>
-      ${ayah.footnotes ? `<p class="quran-footnotes">${escapeHtml(ayah.footnotes)}</p>` : ''}
-      ${ayah.audio ? `<audio class="quran-audio" controls preload="none" controlslist="nodownload" src="${escapeHtml(ayah.audio)}"></audio>` : ''}
+      ${showTranslation ? `<p class="translation">${formatQuranTranslation(ayah.translation)}</p>` : ''}
+      ${showTranslation && ayah.footnotes ? `<p class="quran-footnotes">${escapeHtml(ayah.footnotes)}</p>` : ''}
+      ${ayah.audio ? `
+        <div class="quran-audio-row">
+          <audio class="quran-audio" controls preload="none" controlslist="nodownload" src="${escapeHtml(ayah.audio)}"></audio>
+          <label class="quran-repeat-field">
+            <select class="quran-repeat-select" aria-label="Ulang audio ayat ${ayah.numberInSurah}">
+              ${getQuranRepeatOptions().map(count => `<option value="${count}">${count}x</option>`).join('')}
+            </select>
+          </label>
+        </div>
+      ` : ''}
     </article>
   `;
+}
+
+function formatQuranTranslation(value = '') {
+  return escapeHtml(value).replace(/(\d+\))/g, '<sup class="quran-footnote-ref">$1</sup>');
 }
 
 function bindQuranAudioPlayback(root) {
@@ -711,7 +765,8 @@ function bindQuranAudioPlayback(root) {
       audio.closest('.quran-ayah-card')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     });
     audio.addEventListener('ended', () => {
-      const repeatTarget = Math.max(1, Number(state.quranRepeatCount) || 1);
+      const repeatSelect = audio.closest('.quran-audio-row')?.querySelector('.quran-repeat-select');
+      const repeatTarget = Number(repeatSelect?.value || 1) || 1;
       const playedCount = repeatProgress.get(audio) || 1;
       if (playedCount < repeatTarget) {
         repeatProgress.set(audio, playedCount + 1);
