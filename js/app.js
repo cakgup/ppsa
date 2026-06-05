@@ -3,6 +3,7 @@ const navButtons = [...document.querySelectorAll('.nav-btn')];
 const installBtn = document.querySelector('#installBtn');
 
 const EQURAN_BASE = 'https://equran.id/api/v2/shalat';
+const QURAN_BASE = 'https://api.alquran.cloud/v1';
 const DEFAULT_PROVINCE = 'Jawa Timur';
 const DEFAULT_CITY = 'Kab. Jombang';
 const ARABIC_TITLE = 'مَجْمُوعَةُ الدُّعَاءِ';
@@ -22,6 +23,9 @@ const state = {
   counterLabel: localStorage.getItem('ppsa-counter-label') || 'Tasbih bebas',
   prayerProvince: localStorage.getItem('ppsa-prayer-province') || DEFAULT_PROVINCE,
   prayerCity: localStorage.getItem('ppsa-prayer-city') || DEFAULT_CITY,
+  quranSurahs: null,
+  quranCurrentSurah: Number(localStorage.getItem('ppsa-quran-current-surah') || 1),
+  quranKeyword: '',
   currentSuggestion: null,
   deferredPrompt: null,
 };
@@ -97,6 +101,7 @@ function bindNav() {
       const view = button.dataset.view;
       if (view === 'home') renderHome();
       if (view === 'read') renderReader();
+      if (view === 'quran') renderQuran();
       if (view === 'tasbih') renderTasbih();
       if (view === 'settings') renderSettings();
     });
@@ -445,6 +450,268 @@ function startCounterFromItem(item, target = 0) {
   localStorage.setItem('ppsa-target', state.target);
   localStorage.setItem('ppsa-counter-label', state.counterLabel);
   renderTasbih();
+}
+
+async function renderQuran() {
+  setView('quran');
+  app.innerHTML = `
+    <section class="quran-page">
+      <div class="reader-head quran-head">
+        <div>
+          <h2 class="section-title">Al-Quran</h2>
+          <p class="reader-subtitle">Daftar surah, teks Arab, terjemah Indonesia, dan audio murottal. Rujukan: Al-Quran Kemenag RI.</p>
+        </div>
+        <div class="field">
+          <label for="quranSearch">Cari surah</label>
+          <input id="quranSearch" type="search" value="${escapeHtml(state.quranKeyword)}" placeholder="Nama surah atau arti..." autocomplete="off" />
+        </div>
+      </div>
+      <section id="quranContent">
+        <div class="empty-state card"><h2>Memuat daftar surah</h2><p>Mohon tunggu sebentar.</p></div>
+      </section>
+    </section>
+  `;
+
+  document.querySelector('#quranSearch')?.addEventListener('input', (event) => {
+    state.quranKeyword = event.target.value.trim().toLowerCase();
+    renderQuranList();
+  });
+
+  try {
+    await loadQuranSurahs();
+    renderQuranList();
+  } catch (error) {
+    const content = document.querySelector('#quranContent');
+    if (content) {
+      content.innerHTML = `<div class="empty-state card"><h2>Daftar surah belum bisa dimuat</h2><p>Cek koneksi internet, lalu coba buka kembali tab Quran.</p></div>`;
+    }
+  }
+}
+
+async function loadQuranSurahs() {
+  if (Array.isArray(state.quranSurahs) && state.quranSurahs.length) return state.quranSurahs;
+  const cached = readJson('ppsa-quran-surahs');
+  if (cached?.length) state.quranSurahs = cached;
+
+  try {
+    const response = await fetch('./data/quran_kemenag_surah.json');
+    if (!response.ok) throw new Error('Daftar surah gagal dimuat.');
+    const json = await response.json();
+    if (!Array.isArray(json)) throw new Error('Format daftar surah tidak sesuai.');
+    state.quranSurahs = json;
+    localStorage.setItem('ppsa-quran-surahs', JSON.stringify(json));
+  } catch (error) {
+    if (!state.quranSurahs?.length) throw error;
+  }
+  return state.quranSurahs;
+}
+
+function renderQuranList() {
+  const content = document.querySelector('#quranContent');
+  if (!content) return;
+  const keyword = state.quranKeyword;
+  const surahs = (state.quranSurahs || []).filter(surah => {
+    const haystack = [
+      surah.number,
+      surah.name,
+      surah.englishName,
+      surah.englishNameTranslation,
+      surah.id,
+      surah.arabic,
+      surah.arabic_harakat,
+      surah.latin,
+      surah.transliteration,
+      surah.translation,
+      surah.location,
+      surah.revelationType,
+    ].join(' ').toLowerCase();
+    const normalizedHaystack = normalizeQuranSearch(haystack);
+    const normalizedKeyword = normalizeQuranSearch(keyword);
+    return !keyword || haystack.includes(keyword) || normalizedHaystack.includes(normalizedKeyword);
+  });
+
+  if (!surahs.length) {
+    content.innerHTML = `<div class="empty-state card"><h2>Surah tidak ditemukan</h2><p>Coba kata kunci lain.</p></div>`;
+    return;
+  }
+
+  content.innerHTML = `
+    <div class="quran-list">
+      ${surahs.map(surah => quranSurahCard(surah)).join('')}
+    </div>
+  `;
+
+  content.querySelectorAll('[data-quran-surah]').forEach(button => {
+    button.addEventListener('click', () => openQuranSurah(Number(button.dataset.quranSurah)));
+  });
+}
+
+function quranSurahCard(surah) {
+  const meta = normalizeKemenagSurah(surah);
+  return `
+    <button class="quran-surah-card card" data-quran-surah="${meta.number}">
+      <span class="quran-surah-number">${meta.number}</span>
+      <span class="quran-surah-copy">
+        <strong>${escapeHtml(meta.latin)}</strong>
+        <small>${escapeHtml(meta.translation)} • ${escapeHtml(meta.location)} • ${meta.numberOfAyahs} ayat</small>
+      </span>
+      <span class="quran-surah-arabic arabic" lang="ar" dir="rtl">${escapeHtml(meta.arabic)}</span>
+    </button>
+  `;
+}
+
+async function openQuranSurah(number) {
+  state.quranCurrentSurah = Number(number) || 1;
+  localStorage.setItem('ppsa-quran-current-surah', state.quranCurrentSurah);
+  setView('quran');
+  app.innerHTML = `
+    <section class="quran-page">
+      <div class="reader-head quran-detail-head">
+        <button class="ghost-btn back-btn" id="backToQuranListBtn">← Daftar Surah</button>
+        <div class="field font-row">
+          <label for="quranFontRange">Ukuran font Arab: <span id="quranFontValue">${state.fontSize}px</span></label>
+          <input id="quranFontRange" type="range" min="16" max="36" value="${state.fontSize}" />
+        </div>
+      </div>
+      <section id="quranDetailContent">
+        <div class="empty-state card"><h2>Memuat surah</h2><p>Mohon tunggu sebentar.</p></div>
+      </section>
+    </section>
+  `;
+
+  document.querySelector('#backToQuranListBtn')?.addEventListener('click', renderQuran);
+  document.querySelector('#quranFontRange')?.addEventListener('input', (event) => {
+    setArabicFontSize(event.target.value);
+    const label = document.querySelector('#quranFontValue');
+    if (label) label.textContent = `${state.fontSize}px`;
+  });
+
+  try {
+    const detail = await loadQuranSurahDetail(state.quranCurrentSurah);
+    renderQuranSurahDetail(detail);
+  } catch (error) {
+    const content = document.querySelector('#quranDetailContent');
+    if (content) {
+      content.innerHTML = `<div class="empty-state card"><h2>Surah belum bisa dimuat</h2><p>Cek koneksi internet, lalu coba lagi.</p></div>`;
+    }
+  }
+}
+
+async function loadQuranSurahDetail(number) {
+  const cacheKey = `ppsa-quran-surah-${number}`;
+  const cached = readJson(cacheKey);
+  try {
+    const [kemenagRes, audioRes] = await Promise.all([
+      fetch(`./data/quran_kemenag/surah_${number}.json`),
+      fetch(`${QURAN_BASE}/surah/${number}/ar.alafasy`),
+    ]);
+    if (!kemenagRes.ok) throw new Error('Detail surah gagal dimuat.');
+    const [kemenagJson, audioJson] = await Promise.all([
+      kemenagRes.json(),
+      audioRes.ok ? audioRes.json() : Promise.resolve(null),
+    ]);
+    const payload = mapQuranDetail(kemenagJson, audioJson?.data);
+    localStorage.setItem(cacheKey, JSON.stringify(payload));
+    return payload;
+  } catch (error) {
+    if (cached?.ayahs?.length) return cached;
+    throw error;
+  }
+}
+
+function mapQuranDetail(kemenag, audioSurah = null) {
+  const surah = normalizeKemenagSurah(kemenag.surah || {});
+  const audioByAyah = new Map((audioSurah?.ayahs || []).map(ayah => [Number(ayah.numberInSurah), ayah.audio]));
+  return {
+    number: surah.number,
+    name: surah.arabic,
+    latin: surah.latin,
+    translation: surah.translation,
+    location: surah.location,
+    numberOfAyahs: surah.numberOfAyahs,
+    source: kemenag.source || 'Quran Kemenag RI',
+    ayahs: (kemenag.ayahs || []).map(ayah => ({
+      number: ayah.number,
+      numberInSurah: ayah.ayah,
+      juz: ayah.juz,
+      text: ayah.kitabah || ayah.arabic,
+      audio: audioByAyah.get(Number(ayah.ayah)) || '',
+      translation: ayah.translation || '',
+      footnotes: ayah.footnotes || '',
+    })),
+  };
+}
+
+function normalizeKemenagSurah(surah = {}) {
+  return {
+    number: Number(surah.id || surah.number || 0),
+    arabic: String(surah.arabic_harakat || surah.arabic || surah.name || '').trim(),
+    latin: String(surah.latin || surah.transliteration || surah.englishName || '').trim(),
+    translation: String(surah.translation || surah.englishNameTranslation || '').trim(),
+    numberOfAyahs: Number(surah.num_ayah || surah.numberOfAyahs || 0),
+    location: String(surah.location || surah.revelationType || '').replace('Meccan', 'Makkiyah').replace('Medinan', 'Madaniyah').trim(),
+  };
+}
+
+function renderQuranSurahDetail(surah) {
+  const content = document.querySelector('#quranDetailContent');
+  if (!content) return;
+  content.innerHTML = `
+    <article class="quran-surah-hero card">
+      <div>
+        <p class="quran-kicker">Surah ${surah.number} • ${escapeHtml(surah.location)} • ${surah.numberOfAyahs} ayat</p>
+        <h2>${escapeHtml(surah.latin)}</h2>
+        <p>${escapeHtml(surah.translation)}</p>
+      </div>
+      <div class="quran-title-arabic arabic" lang="ar" dir="rtl">${escapeHtml(surah.name)}</div>
+    </article>
+    <div class="quran-ayah-list">
+      ${surah.ayahs.map(ayah => quranAyahCard(ayah)).join('')}
+    </div>
+  `;
+
+  bindQuranAudioPlayback(content);
+}
+
+function quranAyahCard(ayah) {
+  return `
+    <article class="quran-ayah-card prayer-card card" id="ayah-${ayah.numberInSurah}">
+      <div class="prayer-meta">
+        <span class="prayer-num">${ayah.numberInSurah}</span>
+        <span class="badge">Juz ${ayah.juz}</span>
+      </div>
+      <p class="arabic quran-ayah-text" lang="ar" dir="rtl">${escapeHtml(ayah.text)}</p>
+      <p class="translation">${escapeHtml(ayah.translation)}</p>
+      ${ayah.footnotes ? `<p class="quran-footnotes">${escapeHtml(ayah.footnotes)}</p>` : ''}
+      ${ayah.audio ? `<audio class="quran-audio" controls preload="none" controlslist="nodownload" src="${escapeHtml(ayah.audio)}"></audio>` : ''}
+    </article>
+  `;
+}
+
+function bindQuranAudioPlayback(root) {
+  const audios = [...root.querySelectorAll('.quran-audio')];
+  audios.forEach((audio, index) => {
+    audio.addEventListener('play', () => {
+      audios.forEach(other => {
+        if (other !== audio) other.pause();
+      });
+      audio.closest('.quran-ayah-card')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+    audio.addEventListener('ended', () => {
+      const nextAudio = audios[index + 1];
+      if (nextAudio) nextAudio.play();
+    });
+  });
+}
+
+function normalizeQuranSearch(value = '') {
+  return String(value)
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/aa/g, 'a')
+    .replace(/ee/g, 'i')
+    .replace(/oo/g, 'u')
+    .replace(/[^a-z0-9]+/g, '');
 }
 
 function renderTasbih() {

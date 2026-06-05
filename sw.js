@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ppsa-cache-v16';
+const CACHE_NAME = 'ppsa-cache-v23';
 const APP_ASSETS = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const APP_ASSETS = [
   './js/app.js',
   './data/doa.json',
   './data/doa_v2.json',
+  './data/quran_kemenag_surah.json',
   './assets/logo.png',
   './assets/icon-192.png',
   './assets/icon-512.png',
