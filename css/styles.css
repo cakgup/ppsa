@@ -59,15 +59,19 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
   max-width: 720px;
   min-height: 100vh;
   margin: 0 auto;
+  padding-top: var(--topbar-space, 128px);
   background: var(--ivory);
   overflow-x: hidden;
   box-shadow: 0 0 0 1px rgba(255,255,255,.10), 0 0 60px rgba(0,0,0,.26);
 }
 
 .topbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 20;
+  width: min(720px, 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -520,6 +524,7 @@ a { color: var(--deep-pine); font-weight: 800; }
 
 /* Revisi v4 */
 body.settings-view .topbar { display: none; }
+body.settings-view .app-shell { padding-top: 0; }
 body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px; }
 .menu-card h3 { font-weight: 400; }
 .menu-arabic, .arabic, .arabic-brand-title, .arabic-brand-subtitle {
@@ -714,6 +719,7 @@ body.settings-view .content { min-height: calc(100vh - 56px); padding-top: 16px;
   color: rgba(109, 118, 103, .72);
 }
 @media (max-width: 390px) {
+  .app-shell { --topbar-space: 112px; }
   .topbar { min-height: 112px; padding-inline: 16px; }
   .brand { gap: 12px; }
   .brand-logo { width: 76px; height: 76px; flex-basis: 76px; }
