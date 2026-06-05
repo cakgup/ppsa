@@ -26,6 +26,7 @@ const state = {
   quranSurahs: null,
   quranCurrentSurah: Number(localStorage.getItem('ppsa-quran-current-surah') || 1),
   quranKeyword: '',
+  quranRepeatCount: Number(localStorage.getItem('ppsa-quran-repeat-count') || 1),
   currentSuggestion: null,
   deferredPrompt: null,
 };
@@ -568,6 +569,12 @@ async function openQuranSurah(number) {
     <section class="quran-page">
       <div class="reader-head quran-detail-head">
         <button class="ghost-btn back-btn" id="backToQuranListBtn">← Daftar Surah</button>
+        <div class="field">
+          <label for="quranRepeatSelect">Ulang tiap ayat</label>
+          <select id="quranRepeatSelect">
+            ${[1, 2, 3, 5, 10].map(count => `<option value="${count}" ${state.quranRepeatCount === count ? 'selected' : ''}>${count}x</option>`).join('')}
+          </select>
+        </div>
         <div class="field font-row">
           <label for="quranFontRange">Ukuran font Arab: <span id="quranFontValue">${state.fontSize}px</span></label>
           <input id="quranFontRange" type="range" min="16" max="36" value="${state.fontSize}" />
@@ -584,6 +591,10 @@ async function openQuranSurah(number) {
     setArabicFontSize(event.target.value);
     const label = document.querySelector('#quranFontValue');
     if (label) label.textContent = `${state.fontSize}px`;
+  });
+  document.querySelector('#quranRepeatSelect')?.addEventListener('change', (event) => {
+    state.quranRepeatCount = Number(event.target.value) || 1;
+    localStorage.setItem('ppsa-quran-repeat-count', state.quranRepeatCount);
   });
 
   try {
@@ -690,14 +701,25 @@ function quranAyahCard(ayah) {
 
 function bindQuranAudioPlayback(root) {
   const audios = [...root.querySelectorAll('.quran-audio')];
+  const repeatProgress = new WeakMap();
   audios.forEach((audio, index) => {
     audio.addEventListener('play', () => {
+      if (!repeatProgress.has(audio)) repeatProgress.set(audio, 1);
       audios.forEach(other => {
         if (other !== audio) other.pause();
       });
       audio.closest('.quran-ayah-card')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     });
     audio.addEventListener('ended', () => {
+      const repeatTarget = Math.max(1, Number(state.quranRepeatCount) || 1);
+      const playedCount = repeatProgress.get(audio) || 1;
+      if (playedCount < repeatTarget) {
+        repeatProgress.set(audio, playedCount + 1);
+        audio.currentTime = 0;
+        audio.play();
+        return;
+      }
+      repeatProgress.set(audio, 1);
       const nextAudio = audios[index + 1];
       if (nextAudio) nextAudio.play();
     });
