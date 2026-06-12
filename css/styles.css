@@ -294,6 +294,19 @@ input[type="range"] { accent-color: var(--deep-pine); }
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
+.maulid-transition-shalawat {
+  border-color: rgba(43, 109, 62, .38);
+  background: linear-gradient(180deg, rgba(237, 247, 240, .92), rgba(255, 255, 255, .98));
+}
+.maulid-transition-shalawat .arabic {
+  color: #1f7a3a;
+  font-weight: 700;
+  text-align: center;
+}
+.maulid-transition-shalawat .prayer-num {
+  background: rgba(43, 109, 62, .12);
+  color: #1f6b35;
+}
 .translation {
   margin: 10px 0 0;
   padding-top: 10px;

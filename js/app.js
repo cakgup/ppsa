@@ -12,7 +12,7 @@ const ARABIC_SUBTITLE = 'لِلْمَعْهَدِ الْإِسْلَامِيِّ
 
 const state = {
   data: null,
-  doaVersion: localStorage.getItem('ppsa-doa-version') || 'v1',
+  doaVersion: localStorage.getItem('ppsa-doa-version') || 'v2',
   view: 'home',
   currentSectionId: null,
   currentSubsectionId: null,
@@ -309,8 +309,13 @@ function renderReader() {
       </div>
     </section>
     <section id="readerContent"></section>
+    <button class="quran-top-btn reader-top-btn" id="readerTopBtn" type="button" aria-label="Kembali ke atas">↑</button>
   `;
 
+  document.querySelector('#readerTopBtn')?.addEventListener('click', () => {
+    document.querySelector('.reader-head')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  });
+  bindReaderTopButton();
   document.querySelector('#sectionSelect')?.addEventListener('change', (event) => {
     const selected = findSection(event.target.value);
     state.currentSectionId = selected?.id;
@@ -421,8 +426,9 @@ function prayerCard(item) {
     : '';
   const arabic = normalizeArabicPunctuation(item.arabic_display || item.arabic || '');
   const translation = clean(item.translation_id || '');
+  const transitionClass = isMaulidTransitionShalawat(arabic) ? 'maulid-transition-shalawat' : '';
   return `
-    <article class="prayer-card card ${state.textMode === 'arabic_only' ? 'arabic-only' : ''}">
+    <article class="prayer-card card ${state.textMode === 'arabic_only' ? 'arabic-only' : ''} ${transitionClass}">
       <div class="prayer-meta">
         <span class="prayer-num">${item.order || ''}</span>
         ${repeatOptions.length ? `<span class="badge">Ada hitungan zikir</span>` : ''}
@@ -432,6 +438,17 @@ function prayerCard(item) {
       ${repeatTools}
     </article>
   `;
+}
+
+function isMaulidTransitionShalawat(arabic = '') {
+  if (state.currentSectionId !== '09_maulid_dibai') return false;
+  const compact = String(arabic)
+    .replace(/[\u0610-\u061a\u064b-\u065f\u0670\u06d6-\u06ed]/g, '')
+    .replace(/[^\u0621-\u064a\u0671-\u06d3]/g, '')
+    .replace(/[أإآٱ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه');
+  return compact === 'اللهمصلوسلموباركعليه';
 }
 
 function normalizeArabicPunctuation(value = '') {
@@ -644,6 +661,16 @@ function bindQuranTopButton() {
   const toggle = () => button.classList.toggle('show', window.scrollY > 650);
   window.removeEventListener('scroll', window.__ppsaQuranTopToggle);
   window.__ppsaQuranTopToggle = toggle;
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+}
+
+function bindReaderTopButton() {
+  const button = document.querySelector('#readerTopBtn');
+  if (!button) return;
+  const toggle = () => button.classList.toggle('show', window.scrollY > 650);
+  window.removeEventListener('scroll', window.__ppsaReaderTopToggle);
+  window.__ppsaReaderTopToggle = toggle;
   window.addEventListener('scroll', toggle, { passive: true });
   toggle();
 }
