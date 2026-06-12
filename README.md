@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Aplikasi doa & wirid digital untuk keluarga besar Pondok Pesantren Sunan Ampel</strong><br>
-  Ringan, bisa dibuka dari HP, mendukung mode offline, dan dilengkapi jadwal shalat harian.
+  Jombang, bisa dibuka dari HP, mendukung mode offline, dan dilengkapi jadwal shalat harian.
 </p>
 
 <p align="center">
